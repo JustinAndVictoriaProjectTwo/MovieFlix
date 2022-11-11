@@ -40,10 +40,12 @@
         //   </div>
         // </li>   
 
-// call displayMovies inside the getUserInput method to have results only show up when user hits submit (eventListener)
+// call displayMovies inside the second .then of the getMovies method  to have results only show up after getting data
 
 // call getMovies and getUserInput methods inside init
 // Call init method at the bottom after defining other methods
+
+// workflow: getMovies(), displayMovies(), getUserInput(), getMovies(from userInput), displayMovies(from userInput)
 
 
 const movieApp = {};
@@ -93,6 +95,7 @@ movieApp.getMovies = (userSearch) => {
 
 // create method to get user input
 movieApp.getUserInput = () => {
+
     document.querySelector("form").addEventListener("submit", function(event) {
         event.preventDefault();
         console.log("Heyyyyyyy");
@@ -104,38 +107,60 @@ movieApp.getUserInput = () => {
         // create variable for the value of the user input
         const userSearch = inputEl.value;
         console.log(userSearch);
-
+        
+        // if statetement to change default movie displayed
+        if (userSearch) {
+            console.log(userSearch);
+        }
+        else {
+            console.log("It's the avengers");
+            userSearch = "Avengers";
+        }
         // call the getMovies function and pass it the variable for the user input value
         movieApp.getMovies(userSearch);
 
-        movieApp.displayMovies();
+        // movieApp.displayMovies(data.results);
+        // console.log(data.results);
+
+       
 
     });
 }
         
 // display movies based on user search onto the page
-movieApp.displayMovies = (results) => {
-    console.log("results");
-
-    // get ul from page
-    const ulElement = document.querySelector("ul");
+movieApp.displayMovies = (searchResults) => {
+    console.log(searchResults);
 
     // forEach, loop through array of movie items to put them on the page
+    // movie as a parameter for each search result
+    searchResults.forEach(movie => {
+        console.log(movie);
+    
+        // get ul from page
+        const ulElement = document.querySelector("ul");
+        // We create a new li element, a new img and h2 element: 
+        const newLi = document.createElement("li");
+        const newImage = document.createElement("img");
+        const newTitle = document.createElement("h2");
 
-    // We create a new li element and a new img element: 
-    const newLi = document.createElement("li");
-    const newImage = document.createElement("img");
-    const newTitle = document.createElement("h2");
+        // use predefined original_title property of our object for the newTitle variable
+        newTitle.innerText = movie.original_title;
+        console.log(movie.original_title);
 
-    newTitle.innerText = results.original_title;
+        // create variable for base url and file size to have complete url, add to the poster_path property of the object
+        const baseUrl = "https://image.tmdb.org/t/p/w500/";
 
-    // We populate our image's attribute with info from our object:
-    newImage.src = results.poster_path;
-    //newImage.alt = picObject.alt_description;
+        // We populate our image's attribute with info from our object:
+        newImage.src = `${baseUrl}${movie.poster_path}`;
+        console.log(newImage.src);
+        //newImage.alt = picObject.alt_description;
 
-    // We append the image in the li, an then the li in the ul we got above:
-    newLi.append(newImage, newTitle);
-    ulElement.append(newLi);
+        // We append the image in the li, an then the li in the ul we got above:
+        newLi.append(newImage, newTitle);
+        ulElement.append(newLi);
+    });
+
+    
 }
 
 
