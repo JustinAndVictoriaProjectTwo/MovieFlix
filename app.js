@@ -51,25 +51,28 @@ const movieApp = {};
 movieApp.apiKey = "dee84ae74dda515ad8539f9d406d253b"
 
 // endpoint as pathname
-movieApp.endpoint = "https://api.themoviedb.org/3/search/movie"
+movieApp.endpoint = "https://api.themoviedb.org/3/search/multi";
 
 // baseUrl = "https://api.themoviedb.org/3" as origin property;
 
 // create init method
 movieApp.init = () => {
     console.log("heyyyyyy");
-    movieApp.getChanges();
+    movieApp.getMovies();
+    movieApp.getUserInput();
 }
 
-// create method to get movies that changed
-movieApp.getChanges = () => {
+// create method to get movies that the user searched for
+// pass in the variable for user input value created in the getUserInput method
+movieApp.getMovies = (userSearch) => {
     const myUrl = new URL(movieApp.endpoint);
     console.log(myUrl);
 
     // search params
     myUrl.search = new URLSearchParams({
         api_key: movieApp.apiKey,
-        query: "titanic",
+        // update value of search param to variable for user input value created in the getUserInput method
+        query: userSearch,
         language: "en-US"
         //include_adult: false
     });
@@ -77,20 +80,42 @@ movieApp.getChanges = () => {
 
     // fetch
     fetch(myUrl)
-    .then((response) => {
+    .then(response => {
         // console.log(response);
         return response.json();
     })
-    .then((data) => {
-        console.log(data);
-        movieApp.displayImages(data);
+    .then(data => {
+        console.log(data.results);
+        movieApp.displayMovies(data.results);
     });
 
 };
+
+// create method to get user input
+movieApp.getUserInput = () => {
+    document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        console.log("Heyyyyyyy");
+
+        // create a variable for the user input (search bar)
+        const inputEl = document.querySelector("input");
+        console.log(inputEl);
+
+        // create variable for the value of the user input
+        const userSearch = inputEl.value;
+        console.log(userSearch);
+
+        // call the getMovies function and pass it the variable for the user input value
+        movieApp.getMovies(userSearch);
+
+        movieApp.displayMovies();
+
+    });
+}
         
-// display movies with changes onto page
-movieApp.displayImages = (results) => {
-    console.log(results);
+// display movies based on user search onto the page
+movieApp.displayMovies = (results) => {
+    console.log("results");
 
     // get ul from page
     const ulElement = document.querySelector("ul");
