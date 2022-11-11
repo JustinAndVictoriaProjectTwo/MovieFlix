@@ -12,3 +12,7 @@ html { box-sizing: border-box;}
     width: 80%;
     max-width: 1200px;
 }
+
+.logo {
+    text-align: center;
+}
