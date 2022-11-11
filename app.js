@@ -90,6 +90,9 @@ movieApp.getMovies = (userSearch) => {
         // results name of predefined object for multi-search API
         console.log(data.results);
         
+        // clear the movieList (ul) when user inputs new search
+        document.querySelector(".movieList").innerHTML = "";
+
         // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
     });
@@ -143,10 +146,16 @@ movieApp.displayMovies = (searchResults) => {
     
         // get ul from page
         const ulElement = document.querySelector("ul");
-        // create a new li element, a new img and h2 element: 
+        // create a new li element, a new img, h2, p (media type) p (plot), p (language), p (popularity), p (vote average), p (vote count) element: 
         const newLi = document.createElement("li");
         const newImage = document.createElement("img");
         const newTitle = document.createElement("h2");
+        const mediaType = document.createElement("p");
+        const plot = document.createElement("p");
+        const language = document.createElement("p");
+        const popularRating = document.createElement("p");
+        const voteAverage = document.createElement("p");
+        const voteCount = document.createElement("p");
 
         // use predefined original_title property of our object for the newTitle variable
         newTitle.innerText = movie.original_title;
@@ -160,8 +169,36 @@ movieApp.displayMovies = (searchResults) => {
         console.log(newImage.src);
         //newImage.alt = picObject.alt_description;
 
+        // add alt description to poster img
+        newImage.alt = `${movie.original_title}`;
+        console.log(newImage.alt);
+
+        // use predefined media_type property of our object for the p element:
+        mediaType.innerText = movie.media_type;
+        console.log(movie.media_type);
+
+        // use predefined overview property of our object for the p element
+        plot.innerText = `Plot: ${movie.overview}`;
+        console.log(movie.overview);
+
+        // use predefined original language property of our object for the p element:
+        language.innerText = `Original Language: ${movie.original_language}`;
+        console.log(movie.original_language);
+
+
+        // use predefined popularity property of our object for another p element
+        popularRating.innerText = `Popularity: ${movie.popularity}`;
+        console.log(movie.popularity);
+
+        // use predefined vote average and vote count properties of our object for other p elements:
+        voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
+
+        voteCount.innerText = `Vote Count: ${movie.vote_count}`;
+
+        console.log(movie.vote_average, movie.vote_count);
+
         // append the image and the title in the li, an then the li in the ul we got above:
-        newLi.append(newImage, newTitle);
+        newLi.append(newImage, newTitle, mediaType, plot, language, popularRating, voteAverage, voteCount);
         ulElement.append(newLi);
     });
 
