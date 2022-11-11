@@ -87,7 +87,10 @@ movieApp.getMovies = (userSearch) => {
         return response.json();
     })
     .then(data => {
+        // results name of predefined object for multi-search API
         console.log(data.results);
+        
+        // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
     });
 
@@ -96,7 +99,9 @@ movieApp.getMovies = (userSearch) => {
 // create method to get user input
 movieApp.getUserInput = () => {
 
+    // add event listener to our existing form to listen for when the user hits the search button
     document.querySelector("form").addEventListener("submit", function(event) {
+        // prevent default behaviour of form (constantly refreshing)
         event.preventDefault();
         console.log("Heyyyyyyy");
 
@@ -104,10 +109,10 @@ movieApp.getUserInput = () => {
         const inputEl = document.querySelector("input");
         console.log(inputEl);
 
-        // create variable for the value of the user input
+        // create a variable for the value of the user input
         const userSearch = inputEl.value;
         console.log(userSearch);
-        
+
         // if statetement to change default movie displayed
         if (userSearch) {
             console.log(userSearch);
@@ -116,7 +121,7 @@ movieApp.getUserInput = () => {
             console.log("It's the avengers");
             userSearch = "Avengers";
         }
-        // call the getMovies function and pass it the variable for the user input value
+        // call the getMovies method and pass it the variable for the user input value
         movieApp.getMovies(userSearch);
 
         // movieApp.displayMovies(data.results);
@@ -127,18 +132,18 @@ movieApp.getUserInput = () => {
     });
 }
         
-// display movies based on user search onto the page
+// create a method to display movies based on user search onto the page
 movieApp.displayMovies = (searchResults) => {
     console.log(searchResults);
 
-    // forEach, loop through array of movie items to put them on the page
+    // forEach, loop through array of movie items to put them onto the page
     // movie as a parameter for each search result
     searchResults.forEach(movie => {
         console.log(movie);
     
         // get ul from page
         const ulElement = document.querySelector("ul");
-        // We create a new li element, a new img and h2 element: 
+        // create a new li element, a new img and h2 element: 
         const newLi = document.createElement("li");
         const newImage = document.createElement("img");
         const newTitle = document.createElement("h2");
@@ -147,7 +152,7 @@ movieApp.displayMovies = (searchResults) => {
         newTitle.innerText = movie.original_title;
         console.log(movie.original_title);
 
-        // create variable for base url and file size to have complete url, add to the poster_path property of the object
+        // create variable for base url and file size to have complete url for the poster, add that to the poster_path property of the object
         const baseUrl = "https://image.tmdb.org/t/p/w500/";
 
         // We populate our image's attribute with info from our object:
@@ -155,7 +160,7 @@ movieApp.displayMovies = (searchResults) => {
         console.log(newImage.src);
         //newImage.alt = picObject.alt_description;
 
-        // We append the image in the li, an then the li in the ul we got above:
+        // append the image and the title in the li, an then the li in the ul we got above:
         newLi.append(newImage, newTitle);
         ulElement.append(newLi);
     });
