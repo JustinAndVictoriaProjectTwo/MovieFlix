@@ -153,6 +153,7 @@ movieApp.displayMovies = (searchResults) => {
         const mediaType = document.createElement("p");
         const plot = document.createElement("p");
         const language = document.createElement("p");
+        const releaseDate = document.createElement("p");
         const popularRating = document.createElement("p");
         const voteAverage = document.createElement("p");
         const voteCount = document.createElement("p");
@@ -185,6 +186,9 @@ movieApp.displayMovies = (searchResults) => {
         language.innerText = `Original Language: ${movie.original_language}`;
         console.log(movie.original_language);
 
+        // use predefined release date property of our object for the p element:
+        releaseDate.innerText = `Release Date: ${movie.release_date}`;
+
 
         // use predefined popularity property of our object for another p element
         popularRating.innerText = `Popularity: ${movie.popularity}`;
@@ -198,7 +202,7 @@ movieApp.displayMovies = (searchResults) => {
         console.log(movie.vote_average, movie.vote_count);
 
         // append the image and the title in the li, an then the li in the ul we got above:
-        newLi.append(newImage, newTitle, mediaType, plot, language, popularRating, voteAverage, voteCount);
+        newLi.append(newImage, newTitle, mediaType, plot, language, releaseDate, popularRating, voteAverage, voteCount);
         ulElement.append(newLi);
     });
 
