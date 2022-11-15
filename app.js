@@ -281,17 +281,24 @@ movieApp.displayMovies = (searchResults) => {
             knownHeader.innerText = "Known for";
 
             knownImgOne.src = `${baseUrl}${movie.known_for[0].poster_path}`;
-            knownTitleOne.innerText = `${movie.known_for[0].original_title}`;
-            knownNameOne.innerText = `${movie.known_for[0].name}`;
+          
+            movie.known_for[0].original_title != undefined ? `${knownTitleOne.innerText = movie.known_for[0].original_title} : ${knownTitleOne.innerText} = " "` : 
+            movie.known_for[0].name != undefined ? `${knownNameOne.innerText = movie.known_for[0].name} : ${knownNameOne.innerText} = " "` : 
+            movie.known_for[0].first_air_date != undefined ? `${knownAirOne.innerText = movie.known_for[0].first_air_date} : ${knownAirOne.innerText} = " "`:
+            movie.known_for[0].release_date != undefined ? `${knownReleaseOne.innerText = movie.known_for[0].release_date} : ${knownReleaseOne.innerText} = " "`:
+            movie.known_for[0].origin_country != undefined ? `${knownCountryOne.innerText = movie.known_for[0].origin_country} : ${knownCountryOne.innerText} = " "`:
+            movie.known_for[0].popularity != undefined ? `${knownPopularOne.innerText = movie.known_for[0].popularity} : ${knownPopularOne.innerText} = " "`:
+            
+            // knownNameOne.innerText = `${movie.known_for[0].name}`;
             knownMediaOne.innerText = `${movie.known_for[0].media_type}`;
             console.log(knownMediaOne);
             knownPlotOne.innerText = `Plot: ${movie.known_for[0].overview}`;
             console.log(knownPlotOne);
             knownLanguageOne.innerText = `Original language: ${movie.known_for[0].original_language}`;
-            knownCountryOne.innerText = `Origin country: ${movie.known_for[0].origin_country}`;
-            knownReleaseOne.innerText = `Release date: ${movie.known_for[0].release_date}`;
-            knownAirOne.innerText = `First air date: ${movie.known_for[0].first_air_date}`;
-            knownPopularOne.innerText = `Popularity: ${movie.known_for[0].popularity}`;
+            // knownCountryOne.innerText = `Origin country: ${movie.known_for[0].origin_country}`;
+            // knownReleaseOne.innerText = `Release date: ${movie.known_for[0].release_date}`;
+            // knownAirOne.innerText = `First air date: ${movie.known_for[0].first_air_date}`;
+            // knownPopularOne.innerText = `Popularity: ${movie.known_for[0].popularity}`;
             knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
             knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
 
