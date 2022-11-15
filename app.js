@@ -246,7 +246,9 @@ movieApp.displayMovies = (searchResults) => {
         }
 
 
-    
+        // use predefined media_type property of our object for the p element:
+        mediaType.innerText = movie.media_type;
+        console.log(movie.media_type);
 
         
 
