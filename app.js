@@ -271,6 +271,7 @@ movieApp.displayMovies = (searchResults) => {
             console.log(mediaType);
         }
         else {
+            // known for object properties
             knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
             console.log(knownForDep);
             console.log(movie.known_for_department);
