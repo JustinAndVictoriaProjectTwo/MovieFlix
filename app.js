@@ -120,8 +120,9 @@ movieApp.getMovies = (userSearch) => {
         // results name of predefined object for multi-search API
         console.log(data.results);
         
-        // clear the movieList (ul) when user inputs new search
+       // clear the movieList (ul) and the errorField (div) when user inputs new search
         document.querySelector(".movieList").innerHTML = "";
+        document.querySelector(".errorField").innerHTML = "";
 
         // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
