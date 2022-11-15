@@ -160,7 +160,7 @@ movieApp.getUserInput = () => {
 
     });
 }
-        
+  
 // create a method to display movies based on user search onto the page
 movieApp.displayMovies = (searchResults) => {
     console.log(searchResults);
@@ -246,11 +246,13 @@ movieApp.displayMovies = (searchResults) => {
         }
 
 
-        // use predefined media_type property of our object for the p element:
-        mediaType.innerText = movie.media_type;
-        console.log(movie.media_type);
+    
 
         
+
+        // use predefined overview property of our object for the p element
+        // plot.innerText = `Plot: ${movie.overview}`;
+        // console.log(movie.overview);
 
 
         // use predefined overview property of our object for the p element
