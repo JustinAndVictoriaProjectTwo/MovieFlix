@@ -264,7 +264,39 @@ movieApp.displayMovies = (searchResults) => {
             mediaType.innerText = `${movie.media_type}`;
             console.log(mediaType);
         }
+        else {
+            // known for object properties
+            knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
+            console.log(knownForDep);
+            console.log(movie.known_for_department);
 
+
+            console.log(movie.known_for[0].original_title, movie.known_for[1].original_title);
+
+            knownHeader.innerText = "Known for";
+
+            knownImgOne.src = `${baseUrl}${movie.known_for[0].poster_path}`;
+            knownTitleOne.innerText = `${movie.known_for[0].original_title}`;
+            knownNameOne.innerText = `${movie.known_for[0].name}`;
+            knownMediaOne.innerText = `${movie.known_for[0].media_type}`;
+            console.log(knownMediaOne);
+            knownPlotOne.innerText = `Plot: ${movie.known_for[0].overview}`;
+            console.log(knownPlotOne);
+            knownLanguageOne.innerText = `Original language: ${movie.known_for[0].original_language}`;
+            knownCountryOne.innerText = `Origin country: ${movie.known_for[0].origin_country}`;
+            knownReleaseOne.innerText = `Release date: ${movie.known_for[0].release_date}`;
+            knownAirOne.innerText = `First air date: ${movie.known_for[0].first_air_date}`;
+            knownPopularOne.innerText = `Popularity: ${movie.known_for[0].popularity}`;
+            knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
+            knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
+
+            knownLiOne.append(knownHeader, knownImgOne, knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownPopularOne, knownVoteAvgOne, knownVoteCountOne);
+            // ulElement.append(knownLiOne);
+        }
+        
+        // use predefined overview property of our object for the p element
+        // plot.innerText = `Plot: ${movie.overview}`;
+        // console.log(movie.overview);
         // if statement for handling undefined/null values of API object properties
         if(movie.overview) {
             plot.innerText = `Plot: ${movie.overview}`;
