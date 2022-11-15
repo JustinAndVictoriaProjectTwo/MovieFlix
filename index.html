@@ -21,7 +21,8 @@
             <!-- SEARCH FORM -->
             <form action="" method="get">
                 <label for="search" name="search">Find your faves in a click!</label>
-                <input type="text" id="search" name="search">
+                <input type="text" id="search" name="search" spellcheck="true">
+                <div contenteditable="true" spellcheck="false"></div>
                 <button type="submit">Search</button>
             </form>
         </div><!-- END WRAPPER -->
@@ -36,6 +37,10 @@
             <!-- movies get added dynamically here -->
 
             </ul>
+
+            <div class="errorField">
+                <!-- field for error message -->
+            </div>
         </div><!-- END WRAPPER -->
     </main>
 

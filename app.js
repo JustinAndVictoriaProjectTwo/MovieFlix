@@ -55,27 +55,57 @@ movieApp.apiKey = "dee84ae74dda515ad8539f9d406d253b"
 // endpoint as pathname
 movieApp.endpoint = "https://api.themoviedb.org/3/search/multi";
 
+// endpoint tv genres
+movieApp.endpointTvGenres = "https://api.themoviedb.org/3/genre/tv/list?api_key=dee84ae74dda515ad8539f9d406d253b&language=en-US"
+
 // baseUrl = "https://api.themoviedb.org/3" as origin property;
 
 // create init method
 movieApp.init = () => {
     console.log("heyyyyyy");
+    // movieApp.getTvGenres();
     movieApp.getMovies();
     movieApp.getUserInput();
 }
+
+// attempt of getting tv genres
+// const tvGenres = {};
+
+// movieApp.getTvGenres = () => {
+//     const tvGenresUrl = new URL(movieApp.endpointTvGenres);
+//     console.log(tvGenresUrl);
+
+//     fetch(tvGenresUrl)
+//     .then(response => {
+//         return response.json();
+//     })
+//     .then(data => {
+//         const tvGenres = data.genres;
+//         console.log(tvGenres);
+//         console.log(tvGenres[12].name);
+//     })
+// }
+
+
 
 // create method to get movies that the user searched for
 // pass in the variable for user input value created in the getUserInput method
 movieApp.getMovies = (userSearch) => {
     const myUrl = new URL(movieApp.endpoint);
     console.log(myUrl);
+    console.log(userSearch);
+
+    // if statetement to change default movie displayed
+    if (userSearch === undefined) {
+        userSearch = "Avengers";
+    }
 
     // search params
     myUrl.search = new URLSearchParams({
         api_key: movieApp.apiKey,
         // update value of search param to variable for user input value created in the getUserInput method
         query: userSearch,
-        language: "en-US"
+        // language: "en-US"
         //include_adult: false
     });
     console.log(myUrl);
@@ -116,14 +146,10 @@ movieApp.getUserInput = () => {
         const userSearch = inputEl.value;
         console.log(userSearch);
 
-        // if statetement to change default movie displayed
-        if (userSearch) {
-            console.log(userSearch);
-        }
-        else {
-            console.log("It's the avengers");
-            userSearch = "Avengers";
-        }
+        
+
+        // error handling for user typo in search input: if ul = "" or .. return "no movies or tv shows found. Check for misspelling"
+
         // call the getMovies method and pass it the variable for the user input value
         movieApp.getMovies(userSearch);
 
@@ -159,55 +185,160 @@ movieApp.displayMovies = (searchResults) => {
         const voteCount = document.createElement("p");
 
         // use predefined original_title property of our object for the newTitle variable
-        newTitle.innerText = movie.original_title;
-        console.log(movie.original_title);
+        // newTitle.innerText = movie.original_title;
+        // console.log(movie.original_title);
+
+        // add alt description to poster img
+        // newImage.alt = `${movie.original_title}`;
+        // console.log(newImage.alt);
+
+        // if statement for handling undefined/null values of API object properties
+        if(movie.original_title) {
+
+            newTitle.innerText = movie.original_title;
+            newImage.alt = `${movie.original_title}`;
+            console.log(movie.original_title);
+            console.log(newTitle);
+            console.log(newImage.alt);
+        }
+        else {
+            newTitle.innerText = "Title currently unavailable";
+            console.log(newTitle);
+        }
 
         // create variable for base url and file size to have complete url for the poster, add that to the poster_path property of the object
         const baseUrl = "https://image.tmdb.org/t/p/w500/";
 
         // We populate our image's attribute with info from our object:
-        newImage.src = `${baseUrl}${movie.poster_path}`;
-        console.log(newImage.src);
+        // newImage.src = `${baseUrl}${movie.poster_path}`;
+        // console.log(newImage.src);
         //newImage.alt = picObject.alt_description;
 
-        // add alt description to poster img
-        newImage.alt = `${movie.original_title}`;
-        console.log(newImage.alt);
+        if(movie.poster_path) {
+            // We populate our image's attribute with info from our object:
+            newImage.src = `${baseUrl}${movie.poster_path}`;
+            console.log(newImage.src);
+        }
+        else {
+            newImage.alt = "Image currently unavailable";
+            console.log(newImage.alt);
+        }
+        
 
         // use predefined media_type property of our object for the p element:
         mediaType.innerText = movie.media_type;
         console.log(movie.media_type);
 
         // use predefined overview property of our object for the p element
-        plot.innerText = `Plot: ${movie.overview}`;
-        console.log(movie.overview);
+        // plot.innerText = `Plot: ${movie.overview}`;
+        // console.log(movie.overview);
+
+        // if statement for handling undefined/null values of API object properties
+        if(movie.overview) {
+            plot.innerText = `Plot: ${movie.overview}`;
+            console.log(plot);
+        }
+
+
 
         // use predefined original language property of our object for the p element:
-        language.innerText = `Original Language: ${movie.original_language}`;
-        console.log(movie.original_language);
+        // language.innerText = `Original Language: ${movie.original_language}`;
+        // console.log(movie.original_language);
+
+        // if statement for handling undefined/null values of API object properties
+        if(movie.original_language) {
+            language.innerText = `Original Language: ${movie.original_language}`;
+            console.log(movie.original_language);
+            console.log(language);
+        }
+
+
 
         // use predefined release date property of our object for the p element:
-        releaseDate.innerText = `Release Date: ${movie.release_date}`;
 
+
+        // releaseDate.innerText = `Release Date: ${movie.release_date}`;
+
+        // if statement to stop displaying undefined value of release date property of our result object from the API
+        if(movie.release_date) {
+             releaseDate.innerText = `Release Date: ${movie.release_date}`;
+             console.log(releaseDate);
+             console.log(movie.release_date);       
+        }
+
+        
 
         // use predefined popularity property of our object for another p element
         popularRating.innerText = `Popularity: ${movie.popularity}`;
         console.log(movie.popularity);
 
         // use predefined vote average and vote count properties of our object for other p elements:
-        voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
+        // voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
 
-        voteCount.innerText = `Vote Count: ${movie.vote_count}`;
+        // voteCount.innerText = `Vote Count: ${movie.vote_count}`;
 
-        console.log(movie.vote_average, movie.vote_count);
+        // console.log(movie.vote_average, movie.vote_count);
+
+        // if statement to stop displaying undefined value of vote average property of our result object from the API
+        if(movie.vote_average) {
+            // use predefined vote average property of our object for other p elements:
+            voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
+            console.log(voteAverage);
+            console.log(movie.vote_average);       
+        }
+
+        // if statement to stop displaying undefined value of vote count property of our result object from the API
+        if(movie.vote_count) {
+            // use predefined vote count property of our object for other p elements:
+            voteCount.innerText = `Vote count: ${movie.vote_count}`;
+            console.log(voteCount);
+            console.log(movie.vote_count);       
+       }
+
+
+
+        // genre
+        
+        // console.log(movie.genre_ids);
+
+        // movie.genre_ids.forEach( (genre) => {
+        //     console.log(genre);
+
+        //     console.log(Object.values(tvGenres));
+
+        //     Object.values(tvGenres).forEach(value => {
+        //         console.log(value);
+        //         if(value.id == genre) {
+        //             console.log(value.name);
+        //         }
+        //     })
+        // } )
 
         // append the image and the title in the li, an then the li in the ul we got above:
         newLi.append(newImage, newTitle, mediaType, plot, language, releaseDate, popularRating, voteAverage, voteCount);
         ulElement.append(newLi);
+
+        
+
+        
     });
 
+    if (searchResults.length == 0) {
+        console.log("no movies or TV shows found.");
+        console.log(searchResults.length);
+        
+        const errorMessage = document.createElement("p");
+        const errorField = document.querySelector(".errorField");
+
+        errorMessage.innerText = "No movies found";
+        errorField.appendChild(errorMessage);
+    } 
+    
     
 }
+
+
+
 
 
 // call init method
