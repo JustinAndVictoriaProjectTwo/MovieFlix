@@ -393,7 +393,7 @@ movieApp.displayMovies = (searchResults) => {
         const errorMessage = document.createElement("p");
         const errorField = document.querySelector(".errorField");
 
-        errorMessage.innerText = "No movies found";
+        errorMessage.innerText = "No results found";
         errorField.appendChild(errorMessage);
     } 
     
