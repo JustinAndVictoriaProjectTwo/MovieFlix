@@ -97,7 +97,7 @@ movieApp.getMovies = (userSearch) => {
 
     // if statetement to change default movie displayed
     if (userSearch === undefined) {
-        userSearch = "avengers";
+        userSearch = "Avengers";
     }
 
     // search params
@@ -160,7 +160,7 @@ movieApp.getUserInput = () => {
 
     });
 }
-  
+        
 // create a method to display movies based on user search onto the page
 movieApp.displayMovies = (searchResults) => {
     console.log(searchResults);
@@ -179,7 +179,6 @@ movieApp.displayMovies = (searchResults) => {
         const newTitle = document.createElement("h2");
         const tvTitle = document.createElement("h2");
         const mediaType = document.createElement("p");
-        const knownForDep = document.createElement("p");
         const plot = document.createElement("p");
         const language = document.createElement("p");
         const country = document.createElement("p");
@@ -246,62 +245,22 @@ movieApp.displayMovies = (searchResults) => {
             newImage.alt = "";
         }
 
-        // variables for known for object for people li item 1
-        const knownLiOne = document.createElement("li");
-        const knownHeader = document.createElement("h2");
-        const knownImgOne = document.createElement("img");
-        const knownTitleOne = document.createElement("h3");
-        const knownNameOne = document.createElement("h3");
-        const knownMediaOne = document.createElement("p");
-        const knownPlotOne = document.createElement("p");
-        const knownLanguageOne = document.createElement("p");
-        const knownCountryOne = document.createElement("p");
-        const knownReleaseOne = document.createElement("p");
-        const knownAirOne = document.createElement("p");
-        const knownPopularOne = document.createElement("p");
-        const knownVoteAvgOne = document.createElement("p");
-        const knownVoteCountOne = document.createElement("p");
+
+    
 
         
-        
+
+
+        // use predefined overview property of our object for the p element
+        // plot.innerText = `Plot: ${movie.overview}`;
+        // console.log(movie.overview);
 
         // if statement for handling undefined/null values of API object properties
         if(movie.media_type != "person") {
             mediaType.innerText = `${movie.media_type}`;
             console.log(mediaType);
         }
-        else {
-            knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
-            console.log(knownForDep);
-            console.log(movie.known_for_department);
 
-
-            console.log(movie.known_for[0].original_title, movie.known_for[1].original_title);
-
-            knownHeader.innerText = "Known for";
-
-            knownImgOne.src = `${baseUrl}${movie.known_for[0].poster_path}`;
-            knownTitleOne.innerText = `${movie.known_for[0].original_title}`;
-            knownNameOne.innerText = `${movie.known_for[0].name}`;
-            knownMediaOne.innerText = `${movie.known_for[0].media_type}`;
-            console.log(knownMediaOne);
-            knownPlotOne.innerText = `Plot: ${movie.known_for[0].overview}`;
-            console.log(knownPlotOne);
-            knownLanguageOne.innerText = `Original language: ${movie.known_for[0].original_language}`;
-            knownCountryOne.innerText = `Origin country: ${movie.known_for[0].origin_country}`;
-            knownReleaseOne.innerText = `Release date: ${movie.known_for[0].release_date}`;
-            knownAirOne.innerText = `First air date: ${movie.known_for[0].first_air_date}`;
-            knownPopularOne.innerText = `Popularity: ${movie.known_for[0].popularity}`;
-            knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
-            knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
-
-            knownLiOne.append(knownHeader, knownImgOne, knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownPopularOne, knownVoteAvgOne, knownVoteCountOne);
-            // ulElement.append(knownLiOne);
-        }
-        
-        // use predefined overview property of our object for the p element
-        // plot.innerText = `Plot: ${movie.overview}`;
-        // console.log(movie.overview);
         // if statement for handling undefined/null values of API object properties
         if(movie.overview) {
             plot.innerText = `Plot: ${movie.overview}`;
@@ -330,9 +289,7 @@ movieApp.displayMovies = (searchResults) => {
             console.log(country);
             // console.log(movie.name);
         }
-        else {
-            country.innerText = "";
-        }
+
 
         // use predefined release date property of our object for the p element:
 
@@ -351,7 +308,7 @@ movieApp.displayMovies = (searchResults) => {
             airDate.innerText = `First air date: ${movie.first_air_date}`;
             console.log(airDate);
             console.log(movie.first_air_date);       
-        }
+       }
 
 
         
@@ -381,7 +338,7 @@ movieApp.displayMovies = (searchResults) => {
             voteCount.innerText = `Vote count: ${movie.vote_count}`;
             console.log(voteCount);
             console.log(movie.vote_count);       
-        }
+       }
 
 
 
@@ -414,22 +371,18 @@ movieApp.displayMovies = (searchResults) => {
             console.log(tvTitle);
             // console.log(movie.name);
             newTitle.innerText = "";       
-        }
+       }
 
    
-       
 
         // append the image and the title in the li, an then the li in the ul we got above:
-        newLi.append(newImage, profile, newTitle, tvTitle, mediaType, knownForDep, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
-        ulElement.append(newLi, knownLiOne);
+        newLi.append(newImage, profile, newTitle, tvTitle, mediaType, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
+        ulElement.append(newLi);
 
-       
         
 
         
     });
-
-    
 
     if (searchResults.length == 0) {
         console.log("no movies or TV shows found.");
