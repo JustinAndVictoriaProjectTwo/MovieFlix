@@ -250,9 +250,18 @@ movieApp.displayMovies = (searchResults) => {
         mediaType.innerText = movie.media_type;
         console.log(movie.media_type);
 
+        
+
+
         // use predefined overview property of our object for the p element
         // plot.innerText = `Plot: ${movie.overview}`;
         // console.log(movie.overview);
+
+        // if statement for handling undefined/null values of API object properties
+        if(movie.media_type != "person") {
+            mediaType.innerText = `${movie.media_type}`;
+            console.log(mediaType);
+        }
 
         // if statement for handling undefined/null values of API object properties
         if(movie.overview) {
@@ -260,7 +269,7 @@ movieApp.displayMovies = (searchResults) => {
             console.log(plot);
         }
 
-
+        
 
         // use predefined original language property of our object for the p element:
         // language.innerText = `Original Language: ${movie.original_language}`;
