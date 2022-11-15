@@ -120,9 +120,9 @@ movieApp.getMovies = (userSearch) => {
         // results name of predefined object for multi-search API
         console.log(data.results);
         
-        // clear the movieList (ul) when user inputs new search
+        // clear the movieList (ul) and the errorField (div) when user inputs new search
         document.querySelector(".movieList").innerHTML = "";
-
+        document.querySelector(".errorField").innerHTML = "";
         // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
     });
@@ -175,11 +175,15 @@ movieApp.displayMovies = (searchResults) => {
         // create a new li element, a new img, h2, p (media type) p (plot), p (language), p (popularity), p (vote average), p (vote count) element: 
         const newLi = document.createElement("li");
         const newImage = document.createElement("img");
+        const profile = document.createElement("img");
         const newTitle = document.createElement("h2");
+        const tvTitle = document.createElement("h2");
         const mediaType = document.createElement("p");
         const plot = document.createElement("p");
         const language = document.createElement("p");
+        const country = document.createElement("p");
         const releaseDate = document.createElement("p");
+        const airDate = document.createElement("p");
         const popularRating = document.createElement("p");
         const voteAverage = document.createElement("p");
         const voteCount = document.createElement("p");
@@ -200,6 +204,7 @@ movieApp.displayMovies = (searchResults) => {
             console.log(movie.original_title);
             console.log(newTitle);
             console.log(newImage.alt);
+            tvTitle.innerText = "";
         }
         else {
             newTitle.innerText = "Title currently unavailable";
@@ -208,6 +213,8 @@ movieApp.displayMovies = (searchResults) => {
 
         // create variable for base url and file size to have complete url for the poster, add that to the poster_path property of the object
         const baseUrl = "https://image.tmdb.org/t/p/w500/";
+
+        const baseUrlPerson = "https://image.tmdb.org/t/p/w300/";
 
         // We populate our image's attribute with info from our object:
         // newImage.src = `${baseUrl}${movie.poster_path}`;
@@ -223,7 +230,21 @@ movieApp.displayMovies = (searchResults) => {
             newImage.alt = "Image currently unavailable";
             console.log(newImage.alt);
         }
+
+        // console.log(`${baseUrl}${movie.profile_path}`);
+
         
+
+        // if statement to stop displaying undefined value of vote count property of our result object from the API
+        if(movie.profile_path != undefined) {
+            // use predefined profile_path property of our object for img element for people:
+            profile.src = `${baseUrlPerson}${movie.profile_path}`;
+            console.log(profile.src);
+            // console.log(movie.name);
+            newImage.src = "";
+            newImage.alt = "";
+        }
+
 
         // use predefined media_type property of our object for the p element:
         mediaType.innerText = movie.media_type;
@@ -252,6 +273,15 @@ movieApp.displayMovies = (searchResults) => {
             console.log(language);
         }
 
+       //    console.log(movie.origin_country[0]);
+
+       // if statement to stop displaying undefined value of vote count property of our result object from the API
+       if(movie.origin_country != undefined) {
+            // use predefined vote count property of our object for other p elements:
+            country.innerText = `Origin country: ${movie.origin_country[0]}`;
+            console.log(country);
+            // console.log(movie.name);
+        }
 
 
         // use predefined release date property of our object for the p element:
@@ -265,6 +295,14 @@ movieApp.displayMovies = (searchResults) => {
              console.log(releaseDate);
              console.log(movie.release_date);       
         }
+
+        // if statement to stop displaying undefined value of release date property of our result object from the API
+        if(movie.first_air_date) {
+            airDate.innerText = `First air date: ${movie.first_air_date}`;
+            console.log(airDate);
+            console.log(movie.first_air_date);       
+       }
+
 
         
 
@@ -314,8 +352,24 @@ movieApp.displayMovies = (searchResults) => {
         //     })
         // } )
 
+
+
+        console.log(movie.name);
+        console.log(movie.original_name);
+
+        // if statement to stop displaying undefined value of vote count property of our result object from the API
+        if(movie.name) {
+            // use predefined vote count property of our object for other p elements:
+            tvTitle.innerText = `${movie.name}`;
+            console.log(tvTitle);
+            // console.log(movie.name);
+            newTitle.innerText = "";       
+       }
+
+   
+
         // append the image and the title in the li, an then the li in the ul we got above:
-        newLi.append(newImage, newTitle, mediaType, plot, language, releaseDate, popularRating, voteAverage, voteCount);
+        newLi.append(newImage, profile, newTitle, tvTitle, mediaType, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
         ulElement.append(newLi);
 
         
