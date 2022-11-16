@@ -8,8 +8,14 @@ li{
     img{
         box-shadow: 1px 9px 60px -33px rgba(255, 255, 255);
         border-radius: 20px;
+        width: 100%;
+    }
+    .actorImageContainer{
+        width: 20%;
     }
 }
+
+ 
 
 .textContainer, .knownTextContainer{
     width: 60%;
@@ -27,5 +33,5 @@ li{
 }
 
 .imageContainer, .knownImageContainer{
-    width: 30%;
+    width: 35%;
 }

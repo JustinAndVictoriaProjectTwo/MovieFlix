@@ -17,7 +17,10 @@
     <header>
         <!-- DIV container for logo H1 -->
         <div class="logo">
-            <h1>MovieFlix</h1>
+            <a href="index.html">
+                <h1>MovieFlix</h1>
+            </a>
+         
         </div>
 
         <!-- WRAPPER -->
@@ -26,7 +29,7 @@
             <form action="" method="get">
                 <label for="search" name="search">Find your faves in a click!</label>
                 <div class="searchInputContainer">
-                    <input type="text" id="search" name="search" spellcheck="true">
+                    <input type="text" id="search" name="search" spellcheck="true" required>
                     <button type="submit">Search</button>
                 </div>
        
@@ -39,7 +42,11 @@
         <!-- WRAPPER -->
         <div class="wrapper">
             <!-- LIST OF MOVIES -->
+            <div class="totalResults">
+
+            </div>
             <ul class="movieList">
+            
             <!-- movies get added dynamically here -->
 
             </ul>

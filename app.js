@@ -1,55 +1,5 @@
-// TMDB API
-
-// PSEUDO CODE!!!
-// Create an app object (movieApp) 
-
-// Create init method to start off application setup ()
-
-// create a method (getMovies) to make API calls and get necessary data
-    // url endpoint
-    // URLSearch parameters taken from API documentation /search/multi https://developers.themoviedb.org/3/search/multi-search like query and overview
-    // fetch request
-    // .then() x2
-        
-// create a method (getUserInput) to take user input and store it into variables
-    // add eventListener to listen for when the user submits the form
-    // HTML structure
-        // <form>
-        //   <label>Find your movie</label> 
-        //   <input type="text">
-        //   <button></button>
-        // </form>
-        //    
-    // pass variables as an argument when calling the getMovies function
-
-// create a method to display movies onto page (based on user input) after user hits submit/search (displayMovies)
-    // HTML structure for creating elements based on user input search results
-    // append to existing ul from html file
-        // <li>
-        //   <div class="imgContainer">
-        //      <img src="" alt="">
-        //   </div>
-        //   <div class="textContainer">
-        //      <h2>Movie Title</h2>
-        //      <p>Genre</p>
-        //      <p>Release Year</p>
-        //      <p>Cast</p>
-        //      <p>Plot</p>
-        //      <p>Rating</p>
-        //      <p>Popularity</p>
-        //   </div>
-        // </li>   
-
-// call displayMovies inside the second .then of the getMovies method  to have results only show up after getting data
-
-// call getMovies and getUserInput methods inside init
-// Call init method at the bottom after defining other methods
-
-// workflow: getMovies(), displayMovies(), getUserInput(), getMovies(from userInput), displayMovies(from userInput)
-
 
 const movieApp = {};
-
 movieApp.apiKey = "dee84ae74dda515ad8539f9d406d253b"
 
 // endpoint as pathname
@@ -62,38 +12,16 @@ movieApp.endpointTvGenres = "https://api.themoviedb.org/3/genre/tv/list?api_key=
 
 // create init method
 movieApp.init = () => {
-    console.log("heyyyyyy");
-    // movieApp.getTvGenres();
     movieApp.getMovies();
     movieApp.getUserInput();
+    movieApp.getTotalResults();
 }
-
-// attempt of getting tv genres
-// const tvGenres = {};
-
-// movieApp.getTvGenres = () => {
-//     const tvGenresUrl = new URL(movieApp.endpointTvGenres);
-//     console.log(tvGenresUrl);
-
-//     fetch(tvGenresUrl)
-//     .then(response => {
-//         return response.json();
-//     })
-//     .then(data => {
-//         const tvGenres = data.genres;
-//         console.log(tvGenres);
-//         console.log(tvGenres[12].name);
-//     })
-// }
-
 
 
 // create method to get movies that the user searched for
 // pass in the variable for user input value created in the getUserInput method
 movieApp.getMovies = (userSearch) => {
     const myUrl = new URL(movieApp.endpoint);
-    console.log(myUrl);
-    console.log(userSearch);
 
     // if statetement to change default movie displayed
     if (userSearch === undefined) {
@@ -108,7 +36,6 @@ movieApp.getMovies = (userSearch) => {
         // language: "en-US"
         //include_adult: false
     });
-    console.log(myUrl);
 
     // fetch
     fetch(myUrl)
@@ -118,16 +45,32 @@ movieApp.getMovies = (userSearch) => {
     })
     .then(data => {
         // results name of predefined object for multi-search API
-        console.log(data.results);
+        const totalResults = (data.total_results);
         
         // clear the movieList (ul) and the errorField (div) when user inputs new search
         document.querySelector(".movieList").innerHTML = "";
         document.querySelector(".errorField").innerHTML = "";
+        document.querySelector(".totalResults").innerHTML = "";
         // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
+        movieApp.getTotalResults(totalResults)
+  
     });
 
 };
+
+// Method for total results
+movieApp.getTotalResults = (totalResults) =>{
+    // Error handling when no results are found
+    if (totalResults == undefined){
+        totalResults = 0;
+    }
+    const resultsContainer = document.querySelector('.totalResults');
+    const resultsValue = document.createElement("p");
+    resultsValue.innerText = `Total Results: ${totalResults}`;
+    resultsContainer.append(resultsValue);
+}
+
 
 // create method to get user input
 movieApp.getUserInput = () => {
@@ -136,42 +79,30 @@ movieApp.getUserInput = () => {
     document.querySelector("form").addEventListener("submit", function(event) {
         // prevent default behaviour of form (constantly refreshing)
         event.preventDefault();
-        console.log("Heyyyyyyy");
 
         // create a variable for the user input (search bar)
         const inputEl = document.querySelector("input");
-        console.log(inputEl);
 
         // create a variable for the value of the user input
         const userSearch = inputEl.value;
-        console.log(userSearch);
-
-        
-
-        // error handling for user typo in search input: if ul = "" or .. return "no movies or tv shows found. Check for misspelling"
 
         // call the getMovies method and pass it the variable for the user input value
         movieApp.getMovies(userSearch);
 
-        // movieApp.displayMovies(data.results);
-        // console.log(data.results);
-
         // clearing the user search input after submitting
         inputEl.value = "";
-       
 
     });
 }
   
 // create a method to display movies based on user search onto the page
 movieApp.displayMovies = (searchResults) => {
-    console.log(searchResults);
 
     // forEach, loop through array of movie items to put them onto the page
     // movie as a parameter for each search result
+  
     searchResults.forEach(movie => {
-        console.log(movie);
-    
+      
         // get ul from page
         const ulElement = document.querySelector("ul");
         // create a new li element, a new img, h2, p (media type) p (plot), p (language), p (popularity), p (vote average), p (vote count) element: 
@@ -195,27 +126,15 @@ movieApp.displayMovies = (searchResults) => {
         const voteAverage = document.createElement("p");
         const voteCount = document.createElement("p");
 
-        // use predefined original_title property of our object for the newTitle variable
-        // newTitle.innerText = movie.original_title;
-        // console.log(movie.original_title);
-
-        // add alt description to poster img
-        // newImage.alt = `${movie.original_title}`;
-        // console.log(newImage.alt);
-
         // if statement for handling undefined/null values of API object properties
         if(movie.original_title) {
 
             newTitle.innerText = movie.original_title;
             newImage.alt = `${movie.original_title}`;
-            console.log(movie.original_title);
-            console.log(newTitle);
-            console.log(newImage.alt);
             tvTitle.innerText = "";
         }
         else {
             newTitle.innerText = "Title currently unavailable";
-            console.log(newTitle);
         }
 
         // create variable for base url and file size to have complete url for the poster, add that to the poster_path property of the object
@@ -232,7 +151,6 @@ movieApp.displayMovies = (searchResults) => {
             // We populate our image's attribute with info from our object:
             newImage.src = `${baseUrl}${movie.poster_path}`;
             newImage.alt = `${movie.original_title}`;
-            console.log(newImage.src);
         }
         else if (movie.poster_path != undefined && movie.media_type == "tv") {
             newImage.src = `${baseUrl}${movie.poster_path}`;
@@ -243,15 +161,11 @@ movieApp.displayMovies = (searchResults) => {
 
         
 
-        // if statement to stop displaying undefined value of vote count property of our result object from the API
+        // if statement to check if profile_path has a value
         if(movie.profile_path != undefined) {
             // use predefined profile_path property of our object for img element for people:
             profile.src = `${baseUrlPerson}${movie.profile_path}`;
             profile.alt = `${movie.name}`;
-            console.log(profile.src);
-            // console.log(movie.name);
-            // newImage.src = "";
-            // newImage.alt = "";
         }
         else if (movie.profile_path == null && movie.media_type == "person") {
             // if profile img not found, display default img for person
@@ -276,7 +190,6 @@ movieApp.displayMovies = (searchResults) => {
         const knownCountryOne = document.createElement("p");
         const knownReleaseOne = document.createElement("p");
         const knownAirOne = document.createElement("p");
-        const knownPopularOne = document.createElement("p");
         const knownVoteAvgOne = document.createElement("p");
         const knownVoteCountOne = document.createElement("p");
 
@@ -286,19 +199,13 @@ movieApp.displayMovies = (searchResults) => {
         // if statement for handling undefined/null values of API object properties
         if(movie.media_type != "person") {
             mediaType.innerText = `${movie.media_type}`;
-            console.log(mediaType);
         }
         else {
-            console.log(movie.known_for[0].media_type);
             knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
             movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
             
-            
-            console.log(knownForDep);
-            console.log(movie.known_for_department);
             textContainer.classList.add("actorTextContainer");
-
-            console.log(movie.known_for[0].original_title);
+            imageContainer.classList.add("actorImageContainer");
 
             knownHeader.innerText = "Known for";
 
@@ -306,155 +213,76 @@ movieApp.displayMovies = (searchResults) => {
           
             if (movie.known_for[0].media_type == "movie") {
                 knownImgOne.alt = `${movie.known_for[0].original_title}`;
+                knownTitleOne.innerText = movie.known_for[0].original_title;
+                knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
             }
             else if (movie.known_for[0].media_type == "tv") {
                 knownImgOne.alt = `${movie.known_for[0].name}`;
+                knownNameOne.innerText = movie.known_for[0].name;
+                knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
+                knownCountryOne.innerText = `Origin Country: ${movie.known_for[0].origin_country}`;
             }
             
-            movie.known_for[0].original_title != undefined ? `${knownTitleOne.innerText = movie.known_for[0].original_title} : ${knownTitleOne.innerText} = " "` : 
-            movie.known_for[0].name != undefined ? `${knownNameOne.innerText = movie.known_for[0].name} : ${knownNameOne.innerText} = " "` : 
-            movie.known_for[0].first_air_date != undefined ? `${knownAirOne.innerText = movie.known_for[0].first_air_date} : ${knownAirOne.innerText} = " "`:
-            movie.known_for[0].release_date != undefined ? `${knownReleaseOne.innerText = movie.known_for[0].release_date} : ${knownReleaseOne.innerText} = " "`:
-            movie.known_for[0].origin_country != undefined ? `${knownCountryOne.innerText = movie.known_for[0].origin_country} : ${knownCountryOne.innerText} = " "`:
-            movie.known_for[0].popularity != undefined ? `${knownPopularOne.innerText = movie.known_for[0].popularity} : ${knownPopularOne.innerText} = " "`:
-
-            // ADD PLACEHOLDER IMAGE FOR WHEN A ACTOR DOES NOT HAVE A IMAGE A.K.A THE OTHER RALPH MACCHIO
-        
-        
-            
-            // knownNameOne.innerText = `${movie.known_for[0].name}`;
             knownMediaOne.innerText = `${movie.known_for[0].media_type}`;
             console.log(knownMediaOne);
             knownPlotOne.innerText = `Plot: ${movie.known_for[0].overview}`;
             console.log(knownPlotOne);
             knownLanguageOne.innerText = `Original language: ${movie.known_for[0].original_language}`;
-            // knownCountryOne.innerText = `Origin country: ${movie.known_for[0].origin_country}`;
-            // knownReleaseOne.innerText = `Release date: ${movie.known_for[0].release_date}`;
-            // knownAirOne.innerText = `First air date: ${movie.known_for[0].first_air_date}`;
-            // knownPopularOne.innerText = `Popularity: ${movie.known_for[0].popularity}`;
             knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
             knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
 
+            // Appending elements to page
             knownImageContainer.append(knownHeader,knownImgOne);
-            knownTextContainer.append( knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownPopularOne, knownVoteAvgOne, knownVoteCountOne)
+            knownTextContainer.append( knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownVoteAvgOne, knownVoteCountOne)
             knownLiOne.append( knownImageContainer, knownTextContainer);
-            // ulElement.append(knownLiOne);
         }
         
-        // use predefined overview property of our object for the p element
-        // plot.innerText = `Plot: ${movie.overview}`;
-        // console.log(movie.overview);
-        // if statement for handling undefined/null values of API object properties
+        // If statements to check if properties have values
         if(movie.overview) {
             plot.innerText = `Plot: ${movie.overview}`;
-            console.log(plot);
         }
-
-        
-
-        // use predefined original language property of our object for the p element:
-        // language.innerText = `Original Language: ${movie.original_language}`;
-        // console.log(movie.original_language);
-
-        // if statement for handling undefined/null values of API object properties
+       
         if(movie.original_language) {
             language.innerText = `Original Language: ${movie.original_language}`;
-            console.log(movie.original_language);
-            console.log(language);
         }
 
-       //    console.log(movie.origin_country[0]);
-
-       // if statement to stop displaying undefined value of vote count property of our result object from the API
+  
        if(movie.origin_country != undefined) {
             // use predefined vote count property of our object for other p elements:
             country.innerText = `Origin country: ${movie.origin_country[0]}`;
-            console.log(country);
-            // console.log(movie.name);
         }
         else {
             country.innerText = "";
         }
 
-        // use predefined release date property of our object for the p element:
-
-
-        // releaseDate.innerText = `Release Date: ${movie.release_date}`;
-
-        // if statement to stop displaying undefined value of release date property of our result object from the API
         if(movie.release_date) {
              releaseDate.innerText = `Release Date: ${movie.release_date}`;
-             console.log(releaseDate);
-             console.log(movie.release_date);       
         }
 
-        // if statement to stop displaying undefined value of release date property of our result object from the API
         if(movie.first_air_date) {
             airDate.innerText = `First air date: ${movie.first_air_date}`;
-            console.log(airDate);
-            console.log(movie.first_air_date);       
         }
 
-
-        
-
-        // use predefined popularity property of our object for another p element
-        popularRating.innerText = `Popularity: ${movie.popularity}`;
-        console.log(movie.popularity);
-
-        // use predefined vote average and vote count properties of our object for other p elements:
-        // voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
-
-        // voteCount.innerText = `Vote Count: ${movie.vote_count}`;
-
-        // console.log(movie.vote_average, movie.vote_count);
-
-        // if statement to stop displaying undefined value of vote average property of our result object from the API
         if(movie.vote_average) {
-            // use predefined vote average property of our object for other p elements:
             voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
             console.log(voteAverage);
             console.log(movie.vote_average);       
         }
 
-        // if statement to stop displaying undefined value of vote count property of our result object from the API
         if(movie.vote_count) {
             // use predefined vote count property of our object for other p elements:
-            voteCount.innerText = `Vote count: ${movie.vote_count}`;
-            console.log(voteCount);
-            console.log(movie.vote_count);       
+            voteCount.innerText = `Vote count: ${movie.vote_count}`; 
         }
 
 
-
-        // genre
-        
-        // console.log(movie.genre_ids);
-
-        // movie.genre_ids.forEach( (genre) => {
-        //     console.log(genre);
-
-        //     console.log(Object.values(tvGenres));
-
-        //     Object.values(tvGenres).forEach(value => {
-        //         console.log(value);
-        //         if(value.id == genre) {
-        //             console.log(value.name);
-        //         }
-        //     })
-        // } )
-
-
-
-        console.log(movie.name);
-        console.log(movie.original_name);
+        // use predefined popularity property of our object for another p element
+        popularRating.innerText = `Popularity: ${movie.popularity}`;
+   
 
         // if statement to stop displaying undefined value of vote count property of our result object from the API
         if(movie.name) {
             // use predefined vote count property of our object for other p elements:
             tvTitle.innerText = `${movie.name}`;
-            console.log(tvTitle);
-            // console.log(movie.name);
             newTitle.innerText = "";       
         }
 
@@ -476,9 +304,6 @@ movieApp.displayMovies = (searchResults) => {
     
 
     if (searchResults.length == 0) {
-        console.log("no movies or TV shows found.");
-        console.log(searchResults.length);
-        
         const errorMessage = document.createElement("p");
         const errorField = document.querySelector(".errorField");
 

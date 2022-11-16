@@ -9,11 +9,17 @@
 form,
 footer p {
   text-align: center;
+  margin: 0;
 }
 
 ul {
   list-style-type: none;
   padding-left: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 header {
@@ -43,6 +49,12 @@ h2 {
 h3 {
   font-size: 1.7rem;
   font-weight: 700;
+}
+
+footer {
+  margin-top: 150px;
+  padding: 10px 0;
+  background-color: rgb(121, 8, 31);
 }
 
 html {
@@ -311,6 +323,10 @@ li img {
   -webkit-box-shadow: 1px 9px 60px -33px rgb(255, 255, 255);
           box-shadow: 1px 9px 60px -33px rgb(255, 255, 255);
   border-radius: 20px;
+  width: 100%;
+}
+li .actorImageContainer {
+  width: 20%;
 }
 
 .textContainer, .knownTextContainer {
@@ -329,5 +345,5 @@ li img {
 }
 
 .imageContainer, .knownImageContainer {
-  width: 30%;
+  width: 35%;
 }
