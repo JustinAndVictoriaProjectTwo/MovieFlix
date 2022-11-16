@@ -280,14 +280,15 @@ movieApp.displayMovies = (searchResults) => {
         }
         else {
             console.log(movie.known_for[0].media_type);
-            movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
-
             knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
+            movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
+            
+            
             console.log(knownForDep);
             console.log(movie.known_for_department);
             textContainer.classList.add("actorTextContainer");
 
-            console.log(movie.known_for[0].original_title, movie.known_for[1].original_title);
+            console.log(movie.known_for[0].original_title);
 
             knownHeader.innerText = "Known for";
 
