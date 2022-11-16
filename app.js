@@ -156,6 +156,8 @@ movieApp.getUserInput = () => {
         // movieApp.displayMovies(data.results);
         // console.log(data.results);
 
+        // clearing the user search input after submitting
+        inputEl.value = "";
        
 
     });
@@ -226,14 +228,15 @@ movieApp.displayMovies = (searchResults) => {
         // console.log(newImage.src);
         //newImage.alt = picObject.alt_description;
 
-        if(movie.poster_path) {
+        if(movie.poster_path != undefined && movie.media_type == "movie") {
             // We populate our image's attribute with info from our object:
             newImage.src = `${baseUrl}${movie.poster_path}`;
+            newImage.alt = `${movie.original_title}`;
             console.log(newImage.src);
         }
-        else {
-            newImage.alt = "Image currently unavailable";
-            console.log(newImage.alt);
+        else if (movie.poster_path != undefined && movie.media_type == "tv") {
+            newImage.src = `${baseUrl}${movie.poster_path}`;
+            newImage.alt = `${movie.name}`;
         }
 
         // console.log(`${baseUrl}${movie.profile_path}`);
@@ -244,10 +247,17 @@ movieApp.displayMovies = (searchResults) => {
         if(movie.profile_path != undefined) {
             // use predefined profile_path property of our object for img element for people:
             profile.src = `${baseUrlPerson}${movie.profile_path}`;
+            profile.alt = `${movie.name}`;
             console.log(profile.src);
             // console.log(movie.name);
-            newImage.src = "";
-            newImage.alt = "";
+            // newImage.src = "";
+            // newImage.alt = "";
+        }
+        else if (movie.profile_path == null && movie.media_type == "person") {
+            // if profile img not found, display default img for person
+            profile.src = "./assets/default_person.png";
+            profile.alt = `${movie.name}`;
+            
         }
 
         // variables for known for object for people li item 1
@@ -294,6 +304,13 @@ movieApp.displayMovies = (searchResults) => {
 
             knownImgOne.src = `${baseUrl}${movie.known_for[0].poster_path}`;
           
+            if (movie.known_for[0].media_type == "movie") {
+                knownImgOne.alt = `${movie.known_for[0].original_title}`;
+            }
+            else if (movie.known_for[0].media_type == "tv") {
+                knownImgOne.alt = `${movie.known_for[0].name}`;
+            }
+            
             movie.known_for[0].original_title != undefined ? `${knownTitleOne.innerText = movie.known_for[0].original_title} : ${knownTitleOne.innerText} = " "` : 
             movie.known_for[0].name != undefined ? `${knownNameOne.innerText = movie.known_for[0].name} : ${knownNameOne.innerText} = " "` : 
             movie.known_for[0].first_air_date != undefined ? `${knownAirOne.innerText = movie.known_for[0].first_air_date} : ${knownAirOne.innerText} = " "`:
