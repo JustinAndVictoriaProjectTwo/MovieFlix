@@ -1,0 +1,9 @@
+@use "./variables";
+
+form{
+    display: flex;
+    flex-direction: column;
+    div{
+        margin: 20px 0;
+    }
+}

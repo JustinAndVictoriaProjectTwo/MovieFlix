@@ -1,0 +1,31 @@
+@use "./variables";
+
+
+li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    img{
+        box-shadow: 1px 9px 60px -33px rgba(255, 255, 255);
+        border-radius: 20px;
+    }
+}
+
+.textContainer, .knownTextContainer{
+    width: 60%;
+    p:first-of-type{
+        text-transform: capitalize;
+    }
+}
+
+.actorTextContainer{
+    width: 75%;
+}
+
+.knownTextContainer{
+    padding-top: 65px;
+}
+
+.imageContainer, .knownImageContainer{
+    width: 30%;
+}

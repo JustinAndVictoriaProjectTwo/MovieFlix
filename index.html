@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie App</title>
     <!-- link to stylesheet -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <!-- Link to google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marhey&family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
 </head>
 <body>
     <!-- HEADER -->
@@ -21,9 +25,11 @@
             <!-- SEARCH FORM -->
             <form action="" method="get">
                 <label for="search" name="search">Find your faves in a click!</label>
-                <input type="text" id="search" name="search" spellcheck="true">
-                <div contenteditable="true" spellcheck="false"></div>
-                <button type="submit">Search</button>
+                <div class="searchInputContainer">
+                    <input type="text" id="search" name="search" spellcheck="true">
+                    <button type="submit">Search</button>
+                </div>
+       
             </form>
         </div><!-- END WRAPPER -->
     </header>

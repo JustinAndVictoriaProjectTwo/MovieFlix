@@ -1,8 +1,10 @@
+@use "./variables";
+
 /* General styling */
 .wrapper {
     margin: 0 auto;
-    width: 80%;
-    max-width: 1200px;
+    width: 85%;
+    max-width: 1400px;
 }
 
 .logo,
@@ -13,4 +15,35 @@ footer p {
 
 ul {
     list-style-type: none;
+    padding-left: 0;
+}
+
+header{
+
+    padding: 15px 0;
+    h1{
+        margin: 0;
+        padding: 10px 0;
+        color: rgb(121, 8, 31);
+    }
+}
+
+body{
+    background-color: variables.$backgroundColor;
+    color: #fff;
+}
+
+p, h2, h3{
+    font-family: variables.$secondaryFont;
+    letter-spacing: 1.2px;
+}
+
+h2{
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+h3{
+    font-size: 1.7rem;
+    font-weight: 700;
 }

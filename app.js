@@ -174,6 +174,10 @@ movieApp.displayMovies = (searchResults) => {
         const ulElement = document.querySelector("ul");
         // create a new li element, a new img, h2, p (media type) p (plot), p (language), p (popularity), p (vote average), p (vote count) element: 
         const newLi = document.createElement("li");
+        const textContainer = document.createElement("div");
+        textContainer.classList.add("textContainer");
+        const imageContainer = document.createElement("div");
+        imageContainer.classList.add("imageContainer");
         const newImage = document.createElement("img");
         const profile = document.createElement("img");
         const newTitle = document.createElement("h2");
@@ -248,6 +252,10 @@ movieApp.displayMovies = (searchResults) => {
 
         // variables for known for object for people li item 1
         const knownLiOne = document.createElement("li");
+        const knownImageContainer = document.createElement("div");
+        knownImageContainer.classList.add("knownImageContainer");
+        const knownTextContainer = document.createElement("div");
+        knownTextContainer.classList.add("knownTextContainer");
         const knownHeader = document.createElement("h2");
         const knownImgOne = document.createElement("img");
         const knownTitleOne = document.createElement("h3");
@@ -271,10 +279,13 @@ movieApp.displayMovies = (searchResults) => {
             console.log(mediaType);
         }
         else {
+            console.log(movie.known_for[0].media_type);
+            movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
+
             knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
             console.log(knownForDep);
             console.log(movie.known_for_department);
-
+            textContainer.classList.add("actorTextContainer");
 
             console.log(movie.known_for[0].original_title, movie.known_for[1].original_title);
 
@@ -288,6 +299,10 @@ movieApp.displayMovies = (searchResults) => {
             movie.known_for[0].release_date != undefined ? `${knownReleaseOne.innerText = movie.known_for[0].release_date} : ${knownReleaseOne.innerText} = " "`:
             movie.known_for[0].origin_country != undefined ? `${knownCountryOne.innerText = movie.known_for[0].origin_country} : ${knownCountryOne.innerText} = " "`:
             movie.known_for[0].popularity != undefined ? `${knownPopularOne.innerText = movie.known_for[0].popularity} : ${knownPopularOne.innerText} = " "`:
+
+            // ADD PLACEHOLDER IMAGE FOR WHEN A ACTOR DOES NOT HAVE A IMAGE A.K.A THE OTHER RALPH MACCHIO
+        
+        
             
             // knownNameOne.innerText = `${movie.known_for[0].name}`;
             knownMediaOne.innerText = `${movie.known_for[0].media_type}`;
@@ -302,7 +317,9 @@ movieApp.displayMovies = (searchResults) => {
             knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
             knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
 
-            knownLiOne.append(knownHeader, knownImgOne, knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownPopularOne, knownVoteAvgOne, knownVoteCountOne);
+            knownImageContainer.append(knownHeader,knownImgOne);
+            knownTextContainer.append( knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownPopularOne, knownVoteAvgOne, knownVoteCountOne)
+            knownLiOne.append( knownImageContainer, knownTextContainer);
             // ulElement.append(knownLiOne);
         }
         
@@ -427,7 +444,9 @@ movieApp.displayMovies = (searchResults) => {
        
 
         // append the image and the title in the li, an then the li in the ul we got above:
-        newLi.append(newImage, profile, newTitle, tvTitle, mediaType, knownForDep, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
+        textContainer.append(newTitle, tvTitle, mediaType, knownForDep, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
+        imageContainer.append(newImage, profile)
+        newLi.append(imageContainer, textContainer);
         ulElement.append(newLi, knownLiOne);
 
        

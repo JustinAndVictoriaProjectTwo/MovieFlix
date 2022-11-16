@@ -1,8 +1,8 @@
 /* General styling */
 .wrapper {
   margin: 0 auto;
-  width: 80%;
-  max-width: 1200px;
+  width: 85%;
+  max-width: 1400px;
 }
 
 .logo,
@@ -13,6 +13,36 @@ footer p {
 
 ul {
   list-style-type: none;
+  padding-left: 0;
+}
+
+header {
+  padding: 15px 0;
+}
+header h1 {
+  margin: 0;
+  padding: 10px 0;
+  color: rgb(121, 8, 31);
+}
+
+body {
+  background-color: #0b090a;
+  color: #fff;
+}
+
+p, h2, h3 {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 1.2px;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.7rem;
+  font-weight: 700;
 }
 
 html {
@@ -241,4 +271,63 @@ html {
           clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+body {
+  font-size: 125%;
+}
+
+h1 {
+  font-family: "Permanent Marker", cursive;
+}
+
+label {
+  font-family: "Marhey", cursive;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+form div {
+  margin: 20px 0;
+}
+
+li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 20px;
+}
+li img {
+  -webkit-box-shadow: 1px 9px 60px -33px rgb(255, 255, 255);
+          box-shadow: 1px 9px 60px -33px rgb(255, 255, 255);
+  border-radius: 20px;
+}
+
+.textContainer, .knownTextContainer {
+  width: 60%;
+}
+.textContainer p:first-of-type, .knownTextContainer p:first-of-type {
+  text-transform: capitalize;
+}
+
+.actorTextContainer {
+  width: 75%;
+}
+
+.knownTextContainer {
+  padding-top: 65px;
+}
+
+.imageContainer, .knownImageContainer {
+  width: 30%;
 }
