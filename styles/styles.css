@@ -309,11 +309,30 @@ form {
 form div {
   margin: 20px 0;
 }
+form input {
+  background-color: #e6e6e6;
+  border: 3px solid rgb(121, 8, 31);
+  border-radius: 2px;
+  padding: 5px 15px;
+  color: black;
+  letter-spacing: 1px;
+}
+form button {
+  background-color: rgb(121, 8, 31);
+  border: 3px solid rgb(121, 8, 31);
+  border-radius: 2px;
+  color: white;
+  padding: 5px 20px;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+}
 
 li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -346,4 +365,35 @@ li .actorImageContainer {
 
 .imageContainer, .knownImageContainer {
   width: 35%;
+}
+
+@media (max-width: 800px) {
+  li {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  li .actorImageContainer {
+    width: 75%;
+  }
+  .imageContainer,
+.textContainer,
+.knownImageContainer,
+.knownTextContainer,
+.actorTextContainer {
+    width: 100%;
+  }
+  .knownTextContainer {
+    padding: 0;
+  }
+}
+@media (max-width: 460px) {
+  form button {
+    width: 265px;
+    margin-top: 5px;
+  }
+  footer {
+    font-size: 1.1rem;
+  }
 }

@@ -1,0 +1,35 @@
+@use "./variables";
+
+@media(max-width: 800px){
+    li{
+        flex-direction: column;
+        .actorImageContainer{
+            width: 75%;
+        }
+    }
+
+    .imageContainer,
+    .textContainer,
+    .knownImageContainer,
+    .knownTextContainer,
+    .actorTextContainer{
+        width: 100%;
+    }
+
+    .knownTextContainer{
+        padding: 0;
+    }
+}
+
+@media(max-width: 460px){
+    form{
+        button{
+            width: 265px;
+            margin-top:5px
+        }
+    }
+
+    footer{
+        font-size:1.1rem;
+    }
+}
