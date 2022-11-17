@@ -315,19 +315,35 @@ form input {
   border-radius: 2px;
   padding: 5px 15px;
   color: black;
-  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif;
 }
 form button {
   background-color: rgb(121, 8, 31);
   border: 3px solid rgb(121, 8, 31);
   border-radius: 2px;
   color: white;
-  padding: 5px 20px;
+  padding: 6px 20px;
   letter-spacing: 1px;
   font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+form button:hover,
+form button:focus,
+form button:active {
+  cursor: pointer;
+  background-color: rgb(95, 7, 25);
+  border-color: rgb(95, 7, 25);
+  text-shadow: 0 0 2px #fff;
+}
+form button:not(:hover) {
+  background-color: rgb(121, 8, 31);
+  border: 3px solid rgb(121, 8, 31);
+  text-shadow: none;
 }
 
-li {
+.resultsContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -338,14 +354,34 @@ li {
           justify-content: space-between;
   margin-bottom: 20px;
 }
-li img {
+.resultsContainer img {
   -webkit-box-shadow: 1px 9px 60px -33px rgb(255, 255, 255);
           box-shadow: 1px 9px 60px -33px rgb(255, 255, 255);
   border-radius: 20px;
   width: 100%;
 }
-li .actorImageContainer {
-  width: 20%;
+.resultsContainer .actorImageContainer {
+  width: 25%;
+}
+.resultsContainer .tvPlaceholder {
+  display: inline-block;
+  background: -webkit-gradient(linear, left top, left bottom, from(#19191B), to(rgba(0, 0, 0, 0.65)));
+  background: linear-gradient(to bottom, #19191B 0%, rgba(0, 0, 0, 0.65) 100%); /* W3C */
+  border-radius: 20px;
+  border: 0.1px solid transparent;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.resultsContainer .tvPlaceholder img {
+  position: relative;
+  z-index: -1;
+  display: block;
+  border-radius: 20px;
+}
+
+.movieList .knownResultsContainer {
+  margin-bottom: 120px;
 }
 
 .textContainer, .knownTextContainer {
@@ -353,10 +389,6 @@ li .actorImageContainer {
 }
 .textContainer p:first-of-type, .knownTextContainer p:first-of-type {
   text-transform: capitalize;
-}
-
-.actorTextContainer {
-  width: 75%;
 }
 
 .knownTextContainer {
@@ -368,13 +400,13 @@ li .actorImageContainer {
 }
 
 @media (max-width: 800px) {
-  li {
+  .resultsContainer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  li .actorImageContainer {
+  .resultsContainer .actorImageContainer {
     width: 75%;
   }
   .imageContainer,
@@ -388,9 +420,9 @@ li .actorImageContainer {
     padding: 0;
   }
 }
-@media (max-width: 460px) {
+@media (max-width: 490px) {
   form button {
-    width: 265px;
+    width: 280px;
     margin-top: 5px;
   }
   footer {

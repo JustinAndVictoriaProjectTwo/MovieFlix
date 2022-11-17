@@ -91,8 +91,10 @@ movieApp.getUserInput = () => {
 
         // clearing the user search input after submitting
         inputEl.value = "";
-
+        // clearing the placeholder text after submitting
+        inputEl.placeholder = "";
     });
+
 }
   
 // create a method to display movies based on user search onto the page
@@ -105,8 +107,9 @@ movieApp.displayMovies = (searchResults) => {
       
         // get ul from page
         const ulElement = document.querySelector("ul");
-        // create a new li element, a new img, h2, p (media type) p (plot), p (language), p (popularity), p (vote average), p (vote count) element: 
+        // variables for creating new elements to display them to the page
         const newLi = document.createElement("li");
+        newLi.classList.add("resultsContainer");
         const textContainer = document.createElement("div");
         textContainer.classList.add("textContainer");
         const imageContainer = document.createElement("div");
@@ -126,17 +129,6 @@ movieApp.displayMovies = (searchResults) => {
         const voteAverage = document.createElement("p");
         const voteCount = document.createElement("p");
 
-        // if statement for handling undefined/null values of API object properties
-        if(movie.original_title) {
-
-            newTitle.innerText = movie.original_title;
-            newImage.alt = `${movie.original_title}`;
-            tvTitle.innerText = "";
-        }
-        else {
-            newTitle.innerText = "Title currently unavailable";
-        }
-
         // create variable for base url and file size to have complete url for the poster, add that to the poster_path property of the object
         const baseUrl = "https://image.tmdb.org/t/p/w500/";
 
@@ -145,7 +137,6 @@ movieApp.displayMovies = (searchResults) => {
         // We populate our image's attribute with info from our object:
         // newImage.src = `${baseUrl}${movie.poster_path}`;
         // console.log(newImage.src);
-        //newImage.alt = picObject.alt_description;
 
         if(movie.poster_path != undefined && movie.media_type == "movie") {
             // We populate our image's attribute with info from our object:
@@ -154,6 +145,15 @@ movieApp.displayMovies = (searchResults) => {
         }
         else if (movie.poster_path != undefined && movie.media_type == "tv") {
             newImage.src = `${baseUrl}${movie.poster_path}`;
+            newImage.alt = `${movie.name}`;
+        }
+        else if (movie.poster_path == null && movie.media_type == "movie") {
+            newImage.src = "./assets/movie_default.png";
+            newImage.alt = `${movie.original_title}`;
+        }
+        else if (movie.poster_path == null && movie.media_type == "tv") {
+            imageContainer.classList.add("tvPlaceholder");
+            newImage.src = "./assets/tv_default.webp";
             newImage.alt = `${movie.name}`;
         }
 
@@ -174,8 +174,9 @@ movieApp.displayMovies = (searchResults) => {
             
         }
 
-        // variables for known for object for people li item 1
+        // variables for known for object for people first object
         const knownLiOne = document.createElement("li");
+        knownLiOne.classList.add("resultsContainer");
         const knownImageContainer = document.createElement("div");
         knownImageContainer.classList.add("knownImageContainer");
         const knownTextContainer = document.createElement("div");
@@ -196,37 +197,75 @@ movieApp.displayMovies = (searchResults) => {
         
         
 
-        // if statement for handling undefined/null values of API object properties
+        // if statement to check if media type is not equal to person
         if(movie.media_type != "person") {
             mediaType.innerText = `${movie.media_type}`;
         }
+        // media type is equal to person
         else {
-            knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
-            movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
+            if (movie.known_for[0]) {
+                knownForDep.innerText = `Role in film department: ${movie.known_for_department}`;
             
+            // classes for actors
             textContainer.classList.add("actorTextContainer");
             imageContainer.classList.add("actorImageContainer");
 
+            // add another class to list container to give it more space, separate it from results outside of known_for object
+            knownLiOne.classList.add("knownResultsContainer");
+
+            // heading for known_for results
             knownHeader.innerText = "Known for";
 
+            // poster for known_for results
             knownImgOne.src = `${baseUrl}${movie.known_for[0].poster_path}`;
+
+            // media type for known_for object only if media type is movie or tv
+            // movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
+
+            if (movie.known_for[0].media_type == "movie" || movie.known_for[0].media_type == "tv") {
+                knownMediaOne.innerText = `${knownMediaOne.innerText = movie.known_for[0].media_type}`;
+            }
+            else {
+                knownMediaOne.innerText = "";
+            }
           
+            // if statement to check if media type is movie
             if (movie.known_for[0].media_type == "movie") {
                 knownImgOne.alt = `${movie.known_for[0].original_title}`;
                 knownTitleOne.innerText = movie.known_for[0].original_title;
                 knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
             }
+            // checking if media type is TV
             else if (movie.known_for[0].media_type == "tv") {
                 knownImgOne.alt = `${movie.known_for[0].name}`;
                 knownNameOne.innerText = movie.known_for[0].name;
-                knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
+                
                 knownCountryOne.innerText = `Origin Country: ${movie.known_for[0].origin_country}`;
             }
+            // checking if media type is TV and if air date is not empty
+            else if (movie.known_for[0].media_type = "tv" && movie.known_for[0].first_air_date != null) {
+                knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
+            }
+            // checking if media type is movie and if release date is not empty
+            else if (movie.known_for[0].media_type = "movie" && movie.known_for[0].release_date != null) {
+                knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
+            };
+
+            // if statement to add placeholder image for movie or tv if poster_path property is undefined
+            if (movie.known_for[0].media_type == "movie" && movie.known_for[0].poster_path == undefined) {
+                knownImgOne.src = "./assets/movie_default.png";
+            }
+            else if (movie.known_for[0].media_type == "tv" && movie.known_for[0].poster_path == undefined) {
+                knownImgOne.src = "./assets/tv_default.webp";
+            };
+           
+
+            // if statement to check if overview of known_for object is not empty
+            if (movie.known_for[0].overview) {
+                knownPlotOne.innerText = `Plot: ${movie.known_for[0].overview}`;
+            }
             
-            knownMediaOne.innerText = `${movie.known_for[0].media_type}`;
-            console.log(knownMediaOne);
-            knownPlotOne.innerText = `Plot: ${movie.known_for[0].overview}`;
-            console.log(knownPlotOne);
+            // other properties of known_for object like language, vote avrg & vote count
             knownLanguageOne.innerText = `Original language: ${movie.known_for[0].original_language}`;
             knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
             knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
@@ -235,9 +274,27 @@ movieApp.displayMovies = (searchResults) => {
             knownImageContainer.append(knownHeader,knownImgOne);
             knownTextContainer.append( knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownVoteAvgOne, knownVoteCountOne)
             knownLiOne.append( knownImageContainer, knownTextContainer);
+            }
+            
         }
         
         // If statements to check if properties have values
+        if(movie.original_title) {
+
+            newTitle.innerText = movie.original_title;
+            newImage.alt = `${movie.original_title}`;
+            tvTitle.innerText = "";
+        }
+        else {
+            newTitle.innerText = "Title currently unavailable";
+        }
+
+        if(movie.name) {
+            // use predefined vote count property of our object for other p elements:
+            tvTitle.innerText = `${movie.name}`;
+            newTitle.innerText = "";       
+        }
+
         if(movie.overview) {
             plot.innerText = `Plot: ${movie.overview}`;
         }
@@ -246,14 +303,12 @@ movieApp.displayMovies = (searchResults) => {
             language.innerText = `Original Language: ${movie.original_language}`;
         }
 
-  
-       if(movie.origin_country != undefined) {
-            // use predefined vote count property of our object for other p elements:
+        if(movie.origin_country != undefined) {
             country.innerText = `Origin country: ${movie.origin_country[0]}`;
         }
         else {
             country.innerText = "";
-        }
+        };
 
         if(movie.release_date) {
              releaseDate.innerText = `Release Date: ${movie.release_date}`;
@@ -264,9 +319,7 @@ movieApp.displayMovies = (searchResults) => {
         }
 
         if(movie.vote_average) {
-            voteAverage.innerText = `Vote Average: ${movie.vote_average}`;
-            console.log(voteAverage);
-            console.log(movie.vote_average);       
+            voteAverage.innerText = `Vote Average: ${movie.vote_average}`;       
         }
 
         if(movie.vote_count) {
@@ -279,30 +332,14 @@ movieApp.displayMovies = (searchResults) => {
         popularRating.innerText = `Popularity: ${movie.popularity}`;
    
 
-        // if statement to stop displaying undefined value of vote count property of our result object from the API
-        if(movie.name) {
-            // use predefined vote count property of our object for other p elements:
-            tvTitle.innerText = `${movie.name}`;
-            newTitle.innerText = "";       
-        }
-
-   
-       
-
         // append the image and the title in the li, an then the li in the ul we got above:
         textContainer.append(newTitle, tvTitle, mediaType, knownForDep, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
         imageContainer.append(newImage, profile)
         newLi.append(imageContainer, textContainer);
         ulElement.append(newLi, knownLiOne);
-
-       
-        
-
-        
     });
 
-    
-
+    // if statement to handle user search input with 0 results
     if (searchResults.length == 0) {
         const errorMessage = document.createElement("p");
         const errorField = document.querySelector(".errorField");
@@ -313,9 +350,6 @@ movieApp.displayMovies = (searchResults) => {
     
     
 }
-
-
-
 
 
 // call init method
