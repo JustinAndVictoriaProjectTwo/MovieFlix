@@ -241,6 +241,7 @@ movieApp.displayMovies = (searchResults) => {
             if (movie.known_for[0].media_type == "movie") {
                 knownImgOne.alt = `${movie.known_for[0].original_title}`;
                 knownTitleOne.innerText = movie.known_for[0].original_title;
+                // knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
                 knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
             }
             // checking if media type is TV
@@ -249,14 +250,15 @@ movieApp.displayMovies = (searchResults) => {
                 knownNameOne.innerText = movie.known_for[0].name;
                 
                 knownCountryOne.innerText = `Origin Country: ${movie.known_for[0].origin_country}`;
-            }
-            // checking if media type is TV and if air date is not empty
-            else if (movie.known_for[0].media_type = "tv" && movie.known_for[0].first_air_date != null) {
                 knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
             }
+            // checking if media type is TV and if air date is not empty
+            else if (movie.known_for[0].first_air_date == undefined) {
+                knownAirOne.innerText = "";
+            }
             // checking if media type is movie and if release date is not empty
-            else if (movie.known_for[0].media_type = "movie" && movie.known_for[0].release_date != null) {
-                knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
+            else if (movie.known_for[0].release_date == undefined) {
+                knownReleaseOne.innerText = "";
             };
 
             // if statement to add placeholder image for movie or tv if poster_path property is undefined
@@ -312,11 +314,8 @@ movieApp.displayMovies = (searchResults) => {
         }
 
         if(movie.origin_country != undefined) {
-            country.innerText = `Origin country: ${movie.origin_country[0]}`;
+            country.innerText = `Origin country: ${movie.origin_country}`;
         }
-        else {
-            country.innerText = "";
-        };
 
         if(movie.release_date) {
              releaseDate.innerText = `Release Date: ${movie.release_date}`;
