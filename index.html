@@ -6,14 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie App</title>
     <!-- link to stylesheet -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <!-- Link to google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marhey&family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
 </head>
 <body>
     <!-- HEADER -->
     <header>
         <!-- DIV container for logo H1 -->
         <div class="logo">
-            <h1>MovieFlix</h1>
+            <a href="index.html">
+                <h1>MovieFlix</h1>
+            </a>
+         
         </div>
 
         <!-- WRAPPER -->
@@ -21,8 +28,11 @@
             <!-- SEARCH FORM -->
             <form action="" method="get">
                 <label for="search" name="search">Find your faves in a click!</label>
-                <input type="text" id="search" name="search">
-                <button type="submit">Search</button>
+                <div class="searchInputContainer">
+                    <input type="text" id="search" name="search" spellcheck="true" required placeholder="Avengers"/>
+                    <button type="submit">Search</button>
+                </div>
+       
             </form>
         </div><!-- END WRAPPER -->
     </header>
@@ -32,13 +42,25 @@
         <!-- WRAPPER -->
         <div class="wrapper">
             <!-- LIST OF MOVIES -->
+            <div class="totalResults">
+
+            </div>
             <ul class="movieList">
+            
             <!-- movies get added dynamically here -->
 
             </ul>
+
+            <div class="errorField">
+                <!-- field for error message -->
+            </div>
         </div><!-- END WRAPPER -->
     </main>
-    
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Copyright ©️ 2022 Juno College</p>
+    </footer>
     
     <!-- link to javascript file -->
     <script src="app.js"></script>

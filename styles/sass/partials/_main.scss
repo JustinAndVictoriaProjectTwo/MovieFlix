@@ -1,0 +1,57 @@
+@use "./variables";
+
+
+.resultsContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    img{
+        box-shadow: 1px 9px 60px -33px rgba(255, 255, 255);
+        border-radius: 20px;
+        width: 100%;
+    }
+    // .actorTextContainer{
+    //     width: 75%;
+    // }
+    .actorImageContainer{
+        width: 25%;
+    }
+    .tvPlaceholder {
+        display: inline-block;
+        border-radius: 20px;
+        border: 0.1px solid transparent;
+        height: fit-content;
+        img {
+            position:relative;
+            z-index:-1;
+            display:block;
+            border-radius: 20px;
+        }
+    }
+}
+
+.movieList {
+    .knownResultsContainer {
+        margin-bottom: 120px;
+    }
+}
+
+ 
+
+.textContainer, .knownTextContainer{
+    width: 60%;
+    p:first-of-type{
+        text-transform: capitalize;
+    }
+}
+
+
+
+.knownTextContainer{
+    padding-top: 65px;
+}
+
+.imageContainer, .knownImageContainer{
+    width: 35%;
+}
