@@ -27,12 +27,12 @@ movieApp.getMovies = (userSearch) => {
     if (userSearch === undefined) {
         userSearch = "avengers";
     }
-
+  
     // search params
     myUrl.search = new URLSearchParams({
         api_key: movieApp.apiKey,
         // update value of search param to variable for user input value created in the getUserInput method
-        query: userSearch,
+        query: userSearch
         // language: "en-US"
         //include_adult: false
     });
@@ -61,14 +61,20 @@ movieApp.getMovies = (userSearch) => {
 
 // Method for total results
 movieApp.getTotalResults = (totalResults) =>{
+
+    const resultsContainer = document.querySelector('.totalResults');
+    const resultsValue = document.createElement("p");
+
+
     // Error handling when no results are found
     if (totalResults == undefined){
         totalResults = 0;
     }
-    const resultsContainer = document.querySelector('.totalResults');
-    const resultsValue = document.createElement("p");
+    
     resultsValue.innerText = `Total Results: ${totalResults}`;
+    // console.log(totalResults);
     resultsContainer.append(resultsValue);
+       
 }
 
 
@@ -93,6 +99,8 @@ movieApp.getUserInput = () => {
         inputEl.value = "";
         // clearing the placeholder text after submitting
         inputEl.placeholder = "";
+
+
     });
 
 }

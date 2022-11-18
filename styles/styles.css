@@ -418,10 +418,10 @@ form button:not(:hover) {
 }
 @media (max-width: 490px) {
   form input {
-    width: 100%;
+    width: 80%;
   }
   form button {
-    width: 100%;
+    width: 80%;
     margin-top: 5px;
   }
   footer {
