@@ -1,7 +1,7 @@
 @use "./variables";
 
 @media(max-width: 800px){
-    li{
+    .resultsContainer{
         flex-direction: column;
         .actorImageContainer{
             width: 75%;
@@ -21,10 +21,13 @@
     }
 }
 
-@media(max-width: 460px){
+@media(max-width: 490px){
     form{
+        input{
+            width: 280px;
+        }
         button{
-            width: 265px;
+            width: 280px;
             margin-top:5px
         }
     }

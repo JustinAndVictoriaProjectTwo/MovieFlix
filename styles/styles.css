@@ -368,13 +368,13 @@ li .actorImageContainer {
 }
 
 @media (max-width: 800px) {
-  li {
+  .resultsContainer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  li .actorImageContainer {
+  .resultsContainer .actorImageContainer {
     width: 75%;
   }
   .imageContainer,
@@ -388,9 +388,12 @@ li .actorImageContainer {
     padding: 0;
   }
 }
-@media (max-width: 460px) {
+@media (max-width: 490px) {
+  form input {
+    width: 280px;
+  }
   form button {
-    width: 265px;
+    width: 280px;
     margin-top: 5px;
   }
   footer {
