@@ -129,6 +129,21 @@ movieApp.displayMovies = (searchResults) => {
         const voteAverage = document.createElement("p");
         const voteCount = document.createElement("p");
 
+        // watchlist feature
+        const watchList = document.createElement("a");
+        const watchListIcon = document.createElement("img");
+
+        // if statement to only display watchlist feature for movies and tv shows
+        if (movie.media_type != "person") {
+            watchListIcon.src = "./assets/playlist-plus.svg";
+            watchListIcon.alt = "add to watchlist";
+            watchList.href = "https://www.themoviedb.org/";
+            watchList.target = "_blank";
+            watchList.classList.add("watchList");
+            watchList.append(watchListIcon);
+        }
+        
+
         // create variable for base url and file size to have complete url for the poster, add that to the poster_path property of the object
         const baseUrl = "https://image.tmdb.org/t/p/w500/";
 
@@ -269,9 +284,10 @@ movieApp.displayMovies = (searchResults) => {
             knownLanguageOne.innerText = `Original language: ${movie.known_for[0].original_language}`;
             knownVoteAvgOne.innerText = `Vote average: ${movie.known_for[0].vote_average}`;
             knownVoteCountOne.innerText = `Vote count: ${movie.known_for[0].vote_count}`;
+            
 
             // Appending elements to page
-            knownImageContainer.append(knownHeader,knownImgOne);
+            knownImageContainer.append(knownHeader,knownImgOne, watchList);
             knownTextContainer.append( knownTitleOne, knownNameOne, knownMediaOne, knownPlotOne, knownLanguageOne, knownCountryOne, knownReleaseOne, knownAirOne, knownVoteAvgOne, knownVoteCountOne)
             knownLiOne.append( knownImageContainer, knownTextContainer);
             }
@@ -334,7 +350,7 @@ movieApp.displayMovies = (searchResults) => {
 
         // append the image and the title in the li, an then the li in the ul we got above:
         textContainer.append(newTitle, tvTitle, mediaType, knownForDep, plot, language, country, releaseDate, airDate, popularRating, voteAverage, voteCount);
-        imageContainer.append(newImage, profile)
+        imageContainer.append(newImage, watchList, profile)
         newLi.append(imageContainer, textContainer);
         ulElement.append(newLi, knownLiOne);
     });
