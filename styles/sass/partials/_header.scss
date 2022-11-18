@@ -1,5 +1,17 @@
 @use "./variables";
 
+header{
+    padding: 15px 0;
+    a {
+        display: inline-block;
+    }
+    h1{
+        margin: 0;
+        padding: 10px 0;
+        color: variables.$secondaryColor;
+    }
+}
+
 form{
     display: flex;
     flex-direction: column;

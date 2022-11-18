@@ -297,6 +297,18 @@ label {
   font-family: "Marhey", cursive;
 }
 
+header {
+  padding: 15px 0;
+}
+header a {
+  display: inline-block;
+}
+header h1 {
+  margin: 0;
+  padding: 10px 0;
+  color: rgb(121, 8, 31);
+}
+
 form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -365,8 +377,6 @@ form button:not(:hover) {
 }
 .resultsContainer .tvPlaceholder {
   display: inline-block;
-  background: -webkit-gradient(linear, left top, left bottom, from(#19191B), to(rgba(0, 0, 0, 0.65)));
-  background: linear-gradient(to bottom, #19191B 0%, rgba(0, 0, 0, 0.65) 100%); /* W3C */
   border-radius: 20px;
   border: 0.1px solid transparent;
   height: -webkit-fit-content;
