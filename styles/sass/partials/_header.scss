@@ -1,5 +1,17 @@
 @use "./variables";
 
+header{
+    padding: 15px 0;
+    a {
+        display: inline-block;
+    }
+    h1{
+        margin: 0;
+        padding: 10px 0;
+        color: variables.$secondaryColor;
+    }
+}
+
 form{
     display: flex;
     flex-direction: column;
@@ -12,7 +24,7 @@ form{
         border-radius: 2px;
         padding: 5px 15px;
         color: black;
-        letter-spacing: 1px;
+        font-family: variables.$secondaryFont;
 
     }
     button{
@@ -20,8 +32,25 @@ form{
         border: 3px solid variables.$secondaryColor;
         border-radius: 2px;
         color: white;
-        padding: 5px 20px;
+        padding: 6px 20px;
         letter-spacing: 1px;
         font-size: 1.2rem;
+        font-family: variables.$secondaryFont;
+        transition: all 0.3s ease-in;
+    }
+    button:hover,
+    button:focus,
+    button:active {
+        cursor: pointer;
+        background-color: rgb(95, 7, 25);
+        border-color: rgb(95, 7, 25);
+        text-shadow: 0 0 2px #fff;
+        // box-shadow: 0 0 15px darkred;
+        
+    }
+    button:not(:hover) {
+        background-color: variables.$secondaryColor;
+        border: 3px solid variables.$secondaryColor;
+        text-shadow: none;
     }
 }

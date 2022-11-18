@@ -1,7 +1,7 @@
 @use "./variables";
 
 
-li{
+.resultsContainer{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -11,8 +11,29 @@ li{
         border-radius: 20px;
         width: 100%;
     }
+    // .actorTextContainer{
+    //     width: 75%;
+    // }
     .actorImageContainer{
-        width: 20%;
+        width: 25%;
+    }
+    .tvPlaceholder {
+        display: inline-block;
+        border-radius: 20px;
+        border: 0.1px solid transparent;
+        height: fit-content;
+        img {
+            position:relative;
+            z-index:-1;
+            display:block;
+            border-radius: 20px;
+        }
+    }
+}
+
+.movieList {
+    .knownResultsContainer {
+        margin-bottom: 120px;
     }
 }
 
@@ -25,9 +46,7 @@ li{
     }
 }
 
-.actorTextContainer{
-    width: 75%;
-}
+
 
 .knownTextContainer{
     padding-top: 65px;
