@@ -1,5 +1,6 @@
 @use "./variables";
 
+// tablet size screen
 @media(max-width: 800px){
     .resultsContainer{
         flex-direction: column;
@@ -21,10 +22,14 @@
     }
 }
 
+// mobile size screen
 @media(max-width: 490px){
     form{
+        input{
+            width: 85%;
+        }
         button{
-            width: 280px;
+            width: 85%;
             margin-top:5px
         }
     }
