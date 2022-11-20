@@ -69,7 +69,7 @@ movieApp.displaySearchOverview = (userSearch) => {
     const searchReminder = document.createElement("p");
 
     if (userSearch) {
-        searchReminder.innerText = `Search for "${userSearch}"`;
+        searchReminder.innerText = `Search results for "${userSearch}"`;
         searchOverview.append(searchReminder);
     }
 }
