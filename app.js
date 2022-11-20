@@ -26,6 +26,7 @@ movieApp.getMovies = (userSearch) => {
     // if statetement to change default movie displayed
     if (userSearch === undefined) {
         userSearch = "avengers";
+        // movieApp.displayMovies("avengers");
     }
   
     // search params
@@ -51,24 +52,38 @@ movieApp.getMovies = (userSearch) => {
         document.querySelector(".movieList").innerHTML = "";
         document.querySelector(".errorField").innerHTML = "";
         document.querySelector(".totalResults").innerHTML = "";
+        document.querySelector(".searchOverview").innerHTML = "";
         // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
-        movieApp.getTotalResults(totalResults)
+        movieApp.getTotalResults(totalResults);
+        movieApp.displaySearchOverview(userSearch);
   
     });
 
 };
 
+// method for user search recap
+movieApp.displaySearchOverview = (userSearch) => {
+    
+    const searchOverview = document.querySelector(".searchOverview");
+    const searchReminder = document.createElement("p");
+
+    if (userSearch) {
+        searchReminder.innerText = `Search for "${userSearch}"`;
+        searchOverview.append(searchReminder);
+    }
+}
+
 // Method for total results
 movieApp.getTotalResults = (totalResults) =>{
-
     const resultsContainer = document.querySelector('.totalResults');
     const resultsValue = document.createElement("p");
-
+    const noResultsPage = document.querySelector("main");
 
     // Error handling when no results are found
     if (totalResults == undefined){
         totalResults = 0;
+        noResultsPage.classList.add("noResultsPage");
     }
     
     resultsValue.innerText = `Total Results: ${totalResults}`;
@@ -98,11 +113,12 @@ movieApp.getUserInput = () => {
         // clearing the user search input after submitting
         inputEl.value = "";
         // clearing the placeholder text after submitting
-        inputEl.placeholder = "";
+        // inputEl.placeholder = "";
 
 
     });
 
+    
 }
   
 // create a method to display movies based on user search onto the page
@@ -113,6 +129,7 @@ movieApp.displayMovies = (searchResults) => {
   
     searchResults.forEach(movie => {
       
+        
         // get ul from page
         const ulElement = document.querySelector("ul");
         // variables for creating new elements to display them to the page

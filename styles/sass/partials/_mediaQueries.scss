@@ -1,6 +1,6 @@
 @use "./variables";
 
-@media(max-width: 800px){
+@media(max-width: 830px){
     .resultsContainer{
         flex-direction: column;
         .actorImageContainer{
@@ -19,6 +19,9 @@
     .knownTextContainer{
         padding: 0;
     }
+    .noResultsPage {
+        margin-bottom: 45%;
+    }
 }
 
 @media(max-width: 490px){
@@ -30,6 +33,9 @@
             width: 80%;
             margin-top:5px
         }
+    }
+    .noResultsPage {
+        margin-bottom: 55%;
     }
 
     footer{

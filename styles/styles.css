@@ -395,7 +395,11 @@ form button:not(:hover) {
   width: 35%;
 }
 
-@media (max-width: 800px) {
+.noResultsPage {
+  margin-bottom: 25%;
+}
+
+@media (max-width: 830px) {
   .resultsContainer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -415,6 +419,9 @@ form button:not(:hover) {
   .knownTextContainer {
     padding: 0;
   }
+  .noResultsPage {
+    margin-bottom: 45%;
+  }
 }
 @media (max-width: 490px) {
   form input {
@@ -423,6 +430,9 @@ form button:not(:hover) {
   form button {
     width: 80%;
     margin-top: 5px;
+  }
+  .noResultsPage {
+    margin-bottom: 55%;
   }
   footer {
     font-size: 1.1rem;
