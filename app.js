@@ -24,8 +24,9 @@ movieApp.getMovies = (userSearch) => {
     // if statetement to change default movie displayed
     if (userSearch === undefined) {
         userSearch = "avengers";
+        // movieApp.displayMovies("avengers");
     }
-
+  
     // search params
     myUrl.search = new URLSearchParams({
         api_key: movieApp.apiKey,
@@ -49,26 +50,48 @@ movieApp.getMovies = (userSearch) => {
         document.querySelector(".movieList").innerHTML = "";
         document.querySelector(".errorField").innerHTML = "";
         document.querySelector(".totalResults").innerHTML = "";
+        document.querySelector(".searchOverview").innerHTML = "";
         // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call & getTotalResults
         // results name of predefined object for multi-search API
         movieApp.displayMovies(data.results);
-        movieApp.getTotalResults(totalResults)
+        movieApp.getTotalResults(totalResults);
+        movieApp.displaySearchOverview(userSearch);
   
     });
 
 };
 
+// method for user search recap
+movieApp.displaySearchOverview = (userSearch) => {
+    
+    const searchOverview = document.querySelector(".searchOverview");
+    const searchReminder = document.createElement("p");
+
+    if (userSearch) {
+        searchReminder.innerText = `Search results for "${userSearch}"`;
+        searchOverview.append(searchReminder);
+    }
+}
+
 // Method for total results
 movieApp.getTotalResults = (totalResults) =>{
+    const resultsContainer = document.querySelector('.totalResults');
+    const resultsValue = document.createElement("p");
+    const noResultsPage = document.querySelector("main");
+
     // Error handling when no results are found
     if (totalResults == undefined){
         totalResults = 0;
+        noResultsPage.classList.add("noResultsPage");
     }
+    
     // grabbing div with class of totalResults to append the resultsValue (totalResults) p element to
     const resultsContainer = document.querySelector('.totalResults');
     const resultsValue = document.createElement("p");
     resultsValue.innerText = `Total Results: ${totalResults}`;
+    // console.log(totalResults);
     resultsContainer.append(resultsValue);
+       
 }
 
 
@@ -92,9 +115,12 @@ movieApp.getUserInput = () => {
         // clearing the user search input after submitting
         inputEl.value = "";
         // clearing the placeholder text after submitting
-        inputEl.placeholder = "";
+        // inputEl.placeholder = "";
+
+
     });
 
+    
 }
   
 // create a method to display movies based on user search onto the page
@@ -105,6 +131,7 @@ movieApp.displayMovies = (searchResults) => {
   
     searchResults.forEach(movie => {
       
+        
         // get ul from page
         const ulElement = document.querySelector("ul");
         // variables for creating new elements to display them to the page
@@ -231,6 +258,7 @@ movieApp.displayMovies = (searchResults) => {
             if (movie.known_for[0].media_type == "movie") {
                 knownImgOne.alt = `${movie.known_for[0].original_title}`;
                 knownTitleOne.innerText = movie.known_for[0].original_title;
+                // knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
                 knownReleaseOne.innerText = `Release Date: ${movie.known_for[0].release_date}`;
             }
             // checking if media type is TV
@@ -239,7 +267,13 @@ movieApp.displayMovies = (searchResults) => {
                 knownNameOne.innerText = movie.known_for[0].name;
                 knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
                 knownCountryOne.innerText = `Origin Country: ${movie.known_for[0].origin_country}`;
+                knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
             }
+            // checking if media type is TV and if air date is not empty
+            else if (movie.known_for[0].first_air_date == undefined) {
+                knownAirOne.innerText = "";
+            }
+            // checking if media type is movie and if release date is not empty
             // checking if air date is empty
             else if (movie.known_for[0].first_air_date == undefined) {
                 knownAirOne.innerText = "";
@@ -301,7 +335,8 @@ movieApp.displayMovies = (searchResults) => {
             language.innerText = `Original Language: ${movie.original_language}`;
         }
 
-        if(movie.origin_country) {
+
+        if(movie.origin_country != undefined) {
             country.innerText = `Origin country: ${movie.origin_country}`;
         }
 

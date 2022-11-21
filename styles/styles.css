@@ -22,15 +22,6 @@ a {
   text-decoration: none;
 }
 
-header {
-  padding: 15px 0;
-}
-header h1 {
-  margin: 0;
-  padding: 10px 0;
-  color: rgb(121, 8, 31);
-}
-
 body {
   background-color: #0b090a;
   color: #fff;
@@ -297,15 +288,11 @@ label {
   font-family: "Marhey", cursive;
 }
 
-header {
-  padding: 15px 0;
-}
+
 header a {
   display: inline-block;
 }
 header h1 {
-  margin: 0;
-  padding: 10px 0;
   color: rgb(121, 8, 31);
 }
 
@@ -409,7 +396,11 @@ form button:not(:hover) {
   width: 35%;
 }
 
-@media (max-width: 800px) {
+.noResultsPage {
+  margin-bottom: 25%;
+}
+
+@media (max-width: 830px) {
   .resultsContainer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -429,14 +420,22 @@ form button:not(:hover) {
   .knownTextContainer {
     padding: 0;
   }
+  .noResultsPage {
+    margin-bottom: 45%;
+  }
 }
 @media (max-width: 490px) {
   form input {
-    width: 85%;
+    width: 80%;
+  }
+
   }
   form button {
     width: 85%;
     margin-top: 5px;
+  }
+  .noResultsPage {
+    margin-bottom: 55%;
   }
   footer {
     font-size: 1.1rem;
