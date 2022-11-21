@@ -1,10 +1,11 @@
-// our empty movieApp object where we add our methods and values to (namespacing)
 const movieApp = {};
-// API key
 movieApp.apiKey = "dee84ae74dda515ad8539f9d406d253b"
 
-// our multi-search endpoint
+// endpoint as pathname
 movieApp.endpoint = "https://api.themoviedb.org/3/search/multi";
+
+// endpoint tv genres
+movieApp.endpointTvGenres = "https://api.themoviedb.org/3/genre/tv/list?api_key=dee84ae74dda515ad8539f9d406d253b&language=en-US"
 
 // baseUrl = "https://api.themoviedb.org/3" as origin property;
 
@@ -43,16 +44,15 @@ movieApp.getMovies = (userSearch) => {
         return response.json();
     })
     .then(data => {
-        // total_results name of predefined object for counting total search results, store it to a variable
+        // results name of predefined object for multi-search API
         const totalResults = (data.total_results);
         
-        // clear the movieList (ul), the errorField (div) and the totalResults (div) when user inputs new search
+        // clear the movieList (ul) and the errorField (div) when user inputs new search
         document.querySelector(".movieList").innerHTML = "";
         document.querySelector(".errorField").innerHTML = "";
         document.querySelector(".totalResults").innerHTML = "";
         document.querySelector(".searchOverview").innerHTML = "";
-        // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call & getTotalResults
-        // results name of predefined object for multi-search API
+        // call displayMovies method with the data of our results object as an argument to get results displayed to the page after getting a response from the API call
         movieApp.displayMovies(data.results);
         movieApp.getTotalResults(totalResults);
         movieApp.displaySearchOverview(userSearch);
@@ -85,9 +85,6 @@ movieApp.getTotalResults = (totalResults) =>{
         noResultsPage.classList.add("noResultsPage");
     }
     
-    // grabbing div with class of totalResults to append the resultsValue (totalResults) p element to
-    const resultsContainer = document.querySelector('.totalResults');
-    const resultsValue = document.createElement("p");
     resultsValue.innerText = `Total Results: ${totalResults}`;
     // console.log(totalResults);
     resultsContainer.append(resultsValue);
@@ -247,6 +244,8 @@ movieApp.displayMovies = (searchResults) => {
             knownImgOne.src = `${baseUrl}${movie.known_for[0].poster_path}`;
 
             // media type for known_for object only if media type is movie or tv
+            // movie.known_for[0].media_type == "movie" || "tv" ? `${ knownMediaOne.innerText = movie.known_for[0].media_type} : ${knownMediaOne.innerText} = " "`:
+
             if (movie.known_for[0].media_type == "movie" || movie.known_for[0].media_type == "tv") {
                 knownMediaOne.innerText = `${knownMediaOne.innerText = movie.known_for[0].media_type}`;
             }
@@ -265,7 +264,7 @@ movieApp.displayMovies = (searchResults) => {
             else if (movie.known_for[0].media_type == "tv") {
                 knownImgOne.alt = `${movie.known_for[0].name}`;
                 knownNameOne.innerText = movie.known_for[0].name;
-                knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
+                
                 knownCountryOne.innerText = `Origin Country: ${movie.known_for[0].origin_country}`;
                 knownAirOne.innerText = `First Air Date: ${movie.known_for[0].first_air_date}`;
             }
@@ -274,11 +273,6 @@ movieApp.displayMovies = (searchResults) => {
                 knownAirOne.innerText = "";
             }
             // checking if media type is movie and if release date is not empty
-            // checking if air date is empty
-            else if (movie.known_for[0].first_air_date == undefined) {
-                knownAirOne.innerText = "";
-            }
-            // checking if release date is empty
             else if (movie.known_for[0].release_date == undefined) {
                 knownReleaseOne.innerText = "";
             };
@@ -335,7 +329,6 @@ movieApp.displayMovies = (searchResults) => {
             language.innerText = `Original Language: ${movie.original_language}`;
         }
 
-
         if(movie.origin_country != undefined) {
             country.innerText = `Origin country: ${movie.origin_country}`;
         }
@@ -353,12 +346,12 @@ movieApp.displayMovies = (searchResults) => {
         }
 
         if(movie.vote_count) {
-            // use predefined vote count property of our object:
+            // use predefined vote count property of our object for other p elements:
             voteCount.innerText = `Vote count: ${movie.vote_count}`; 
         }
 
 
-        // use predefined popularity property of our object
+        // use predefined popularity property of our object for another p element
         popularRating.innerText = `Popularity: ${movie.popularity}`;
    
 
