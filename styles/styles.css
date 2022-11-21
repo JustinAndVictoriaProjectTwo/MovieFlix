@@ -288,6 +288,7 @@ label {
   font-family: "Marhey", cursive;
 }
 
+
 header a {
   display: inline-block;
 }
@@ -427,8 +428,10 @@ form button:not(:hover) {
   form input {
     width: 80%;
   }
+
+  }
   form button {
-    width: 80%;
+    width: 85%;
     margin-top: 5px;
   }
   .noResultsPage {

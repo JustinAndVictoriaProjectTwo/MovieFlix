@@ -1,5 +1,6 @@
 @use "./variables";
 
+
 header {
     a {
         display: inline-block;
@@ -7,6 +8,7 @@ header {
     h1 {
         color: variables.$secondaryColor;
     } 
+
 }
 
 form{
