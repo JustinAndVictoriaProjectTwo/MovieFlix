@@ -20,19 +20,18 @@
             <a href="index.html">
                 <h1>MovieFlix</h1>
             </a>
-         
-        </div>
+        </div><!-- END LOGO container -->
 
         <!-- WRAPPER -->
         <div class="wrapper">
             <!-- SEARCH FORM -->
             <form action="" method="get">
                 <label for="search" name="search">Find your faves in a click🎬</label>
+                <!-- SEARCH INPUT AND BUTTON CONTAINER -->
                 <div class="searchInputContainer">
-                    <input type="text" id="search" name="search" spellcheck="true" required placeholder="Avengers"/>
+                    <input type="text" id="search" name="search" spellcheck="true" required placeholder="movie, TV show or person"/>
                     <button type="submit">Search</button>
-                </div>
-       
+                </div><!-- END SEARCH INPUT AND BUTTON CONTAINER -->
             </form>
         </div><!-- END WRAPPER -->
     </header>
@@ -41,20 +40,27 @@
     <main>
         <!-- WRAPPER -->
         <div class="wrapper">
-            <!-- RESULTS COUNT CONTAINER -->
+            <!-- SEARCH OVERVIEW container (user can see own input) -->
+            <div class="searchOverview">
+                <!-- user search input shows up here (user input repetition) -->
+            </div><!-- END SEARCH OVERVIEW container-->
+
+            <!-- RESULTS COUNT container -->
             <div class="totalResults">
                 <!-- total results are counted here -->
+            </div><!-- END RESULTS COUNT container -->
 
-            </div>
             <!-- LIST OF MOVIES -->
             <ul class="movieList">
                 <!-- movies get added dynamically here -->
 
             </ul>
-            <!-- field for error message -->
+
+            <!-- ERROR FIELD -->
             <div class="errorField">
-                <!-- if applicable error message gets added here -->
-            </div>
+                <!-- error message gets added here (if applicable) -->
+            </div><!-- END ERROR FIELD-->
+
         </div><!-- END WRAPPER -->
     </main>
 

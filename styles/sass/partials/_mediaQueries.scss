@@ -1,7 +1,6 @@
 @use "./variables";
 
-// tablet size screen
-@media(max-width: 800px){
+@media(max-width: 830px){
     .resultsContainer{
         flex-direction: column;
         .actorImageContainer{
@@ -20,18 +19,23 @@
     .knownTextContainer{
         padding: 0;
     }
+    .noResultsPage {
+        margin-bottom: 45%;
+    }
 }
 
-// mobile size screen
 @media(max-width: 490px){
     form{
-        input{
-            width: 85%;
+        input {
+            width: 80%;
         }
         button{
-            width: 85%;
+            width: 80%;
             margin-top:5px
         }
+    }
+    .noResultsPage {
+        margin-bottom: 55%;
     }
 
     footer{
